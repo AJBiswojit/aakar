@@ -1,0 +1,46 @@
+/* AAKAR — SectionHead */
+
+.aakar-section-head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-2xl);
+}
+
+.aakar-section-head__lead {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  max-width: 62ch;
+}
+
+.aakar-section-head__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-light);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-display);
+  color: var(--on-surface, var(--text-primary));
+}
+
+.aakar-section-head__body {
+  max-width: 54ch;
+  color: var(--on-surface-muted, var(--text-secondary));
+  font-size: var(--fs-lead);
+  line-height: var(--lh-relaxed);
+}
+
+/* Split layout: statement left, action bottom-right — controlled asymmetry */
+@media (min-width: 900px) {
+  .aakar-section-head--split {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--space-2xl);
+  }
+
+  .aakar-section-head--split .aakar-section-head__action {
+    flex-shrink: 0;
+    padding-bottom: 0.4rem;
+  }
+}

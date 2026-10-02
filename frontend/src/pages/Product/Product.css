@@ -1,0 +1,111 @@
+/* AAKAR — Product: minimal record view for the foundation phase */
+
+.aakar-product {
+  padding-top: calc(var(--layout-nav-h) + var(--space-3xl));
+  padding-bottom: var(--space-3xl);
+}
+
+.aakar-product__header {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-2xl);
+  padding-bottom: var(--space-2xl);
+}
+
+.aakar-product__heading {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.aakar-product__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-h1);
+  font-weight: var(--fw-light);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-display);
+  text-transform: uppercase;
+}
+
+.aakar-product__description {
+  max-width: 56ch;
+  color: var(--text-secondary);
+  font-size: var(--fs-lead);
+  line-height: var(--lh-relaxed);
+}
+
+.aakar-product__summary {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  align-self: start;
+  padding-top: var(--space-lg);
+  border-top: var(--border-width) solid var(--border-light);
+}
+
+.aakar-product__price {
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-light);
+  font-variant-numeric: tabular-nums;
+}
+
+.aakar-product__license,
+.aakar-product__reviews {
+  color: var(--text-secondary);
+  text-transform: capitalize;
+}
+
+.aakar-product__specs {
+  padding-block: var(--space-2xl);
+  border-top: var(--border-width) solid var(--border-light);
+}
+
+.aakar-product__specs-title {
+  margin-bottom: var(--space-lg);
+  font-family: var(--font-display);
+  font-size: var(--fs-h4);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-heading);
+}
+
+.aakar-product__examination {
+  margin-top: var(--space-2xl);
+  padding-block: var(--space-3xl);
+  background-color: var(--color-obsidian);
+  color: var(--text-on-dark);
+}
+
+.aakar-product__examination-inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  align-items: flex-start;
+  max-width: 62ch;
+}
+
+.aakar-product__examination-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-light);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--ls-display);
+}
+
+.aakar-product__examination-body {
+  color: var(--text-on-dark-muted);
+  line-height: var(--lh-relaxed);
+}
+
+.aakar-product__examination-body code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  color: var(--color-cobalt-light);
+}
+
+@media (min-width: 900px) {
+  .aakar-product__header {
+    grid-template-columns: minmax(0, 1.6fr) minmax(16rem, 0.9fr);
+    gap: var(--space-3xl);
+  }
+}

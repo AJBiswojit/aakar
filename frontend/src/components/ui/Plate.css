@@ -1,0 +1,85 @@
+/* AAKAR — Plate
+   Image surface + designed placeholder for records whose assets are not yet
+   supplied. Placeholder tones come from the record's own palette, so the grid
+   still reads as an art-directed catalogue. */
+
+.aakar-plate {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  margin: 0;
+  aspect-ratio: var(--plate-ratio, 4 / 5);
+  background-color: var(--color-obsidian);
+}
+
+.aakar-plate__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slower);
+}
+
+/* ---------- placeholder ---------- */
+.aakar-plate--empty {
+  background-image: linear-gradient(
+    160deg,
+    var(--plate-tone-a) 0%,
+    var(--plate-tone-b) 100%
+  );
+  color: var(--text-on-dark);
+}
+
+.aakar-plate__field {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+
+.aakar-plate__axis {
+  position: absolute;
+  background-color: var(--on-media-hairline);
+}
+
+.aakar-plate__axis--vertical {
+  top: 0;
+  bottom: 0;
+  left: 33.333%;
+  width: 1px;
+}
+
+.aakar-plate__axis--horizontal {
+  left: 0;
+  right: 0;
+  top: 66.666%;
+  height: 1px;
+}
+
+.aakar-plate__index {
+  position: absolute;
+  top: var(--space-lg);
+  right: var(--space-lg);
+  font-family: var(--font-display);
+  font-size: var(--fs-body);
+  font-weight: var(--fw-light);
+  letter-spacing: var(--ls-wide);
+  color: var(--on-media-muted);
+}
+
+.aakar-plate__label {
+  position: absolute;
+  left: var(--space-lg);
+  bottom: var(--space-lg);
+  max-width: 70%;
+  color: var(--on-media-label);
+}
+
+/* The one deliberate cobalt mark on a placeholder: a short rule under the
+   caption, signalling that this asset is pending rather than missing. */
+.aakar-plate__label::after {
+  content: '';
+  display: block;
+  width: 2rem;
+  height: 1px;
+  margin-top: var(--space-sm);
+  background-color: var(--color-cobalt);
+}

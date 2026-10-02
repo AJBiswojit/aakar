@@ -1,0 +1,42 @@
+/* AAKAR — MetaList: hairline-separated technical rows */
+
+.aakar-meta {
+  display: grid;
+  gap: 0;
+  width: 100%;
+}
+
+.aakar-meta__row {
+  display: grid;
+  grid-template-columns: minmax(8rem, 1fr) 1.2fr;
+  gap: var(--space-md);
+  align-items: baseline;
+  padding-block: var(--space-sm);
+  border-bottom: var(--border-width) solid var(--hairline, var(--border-light));
+}
+
+.aakar-meta__row:first-child {
+  border-top: var(--border-width) solid var(--hairline, var(--border-light));
+}
+
+.aakar-meta--dense .aakar-meta__row {
+  padding-block: var(--space-xs);
+}
+
+.aakar-meta__label {
+  color: var(--on-surface-muted, var(--text-secondary));
+}
+
+.aakar-meta__value {
+  margin: 0;
+  font-size: var(--fs-body-sm);
+  font-variant-numeric: tabular-nums;
+  color: var(--on-surface, var(--text-primary));
+}
+
+@media (max-width: 480px) {
+  .aakar-meta__row {
+    grid-template-columns: 1fr;
+    gap: var(--space-xs);
+  }
+}

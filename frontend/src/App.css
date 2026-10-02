@@ -1,0 +1,18 @@
+/* AAKAR — App shell
+   The shell guarantees only two things: the main region never collapses while
+   a route chunk loads, and the page always ends on the obsidian footer. */
+
+.aakar-main {
+  display: block;
+  min-height: 60vh;
+  position: relative;
+  z-index: var(--z-base);
+}
+
+.aakar-route-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 70vh;
+  padding-top: var(--layout-nav-h);
+}

@@ -1,0 +1,42 @@
+/* AAKAR — Notice: empty / error / fallback states */
+
+.aakar-notice {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  align-items: flex-start;
+  padding: var(--space-xl) 0;
+  border-top: var(--border-width) solid var(--hairline, var(--border-light));
+  border-bottom: var(--border-width) solid var(--hairline, var(--border-light));
+  color: var(--on-surface, var(--text-primary));
+}
+
+.aakar-notice__kicker {
+  color: var(--color-cobalt);
+}
+
+[data-theme='dark'] .aakar-notice__kicker {
+  color: var(--color-cobalt-light);
+}
+
+.aakar-notice--error .aakar-notice__kicker {
+  color: var(--color-cobalt-light);
+}
+
+.aakar-notice__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-h4);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-heading);
+}
+
+.aakar-notice__body {
+  max-width: 48ch;
+  color: var(--on-surface-muted, var(--text-secondary));
+  font-size: var(--fs-body-sm);
+  line-height: var(--lh-relaxed);
+}
+
+.aakar-notice__action {
+  margin-top: var(--space-sm);
+}

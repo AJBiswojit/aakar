@@ -1,0 +1,136 @@
+/* AAKAR — StudioIntro: BLACK / PORTFOLIO STORYTELLING */
+
+.aakar-studio {
+  background-color: var(--color-black);
+  color: var(--text-on-dark);
+}
+
+.aakar-studio__inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-2xl);
+}
+
+.aakar-studio__portrait {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.aakar-studio__caption {
+  color: var(--text-on-dark-muted);
+}
+
+/* SectionHead inherits the dark surface tokens automatically; the section head
+   inside the dark zone carries no bottom margin of its own. */
+.aakar-studio .aakar-section-head {
+  margin-bottom: 0;
+}
+
+.aakar-studio__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xl);
+}
+
+.aakar-studio__principles {
+  display: grid;
+  gap: 0;
+}
+
+.aakar-studio__principle {
+  padding-block: var(--space-lg);
+  border-top: var(--border-width) solid var(--border-dark);
+}
+
+.aakar-studio__principle:last-child {
+  border-bottom: var(--border-width) solid var(--border-dark);
+}
+
+.aakar-studio__principle-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-h4);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-heading);
+  color: var(--text-on-dark);
+}
+
+.aakar-studio__principle-body {
+  max-width: 56ch;
+  margin-top: var(--space-xs);
+  color: var(--text-on-dark-muted);
+  font-size: var(--fs-body-sm);
+  line-height: var(--lh-relaxed);
+}
+
+.aakar-studio__tools {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.aakar-studio__tools-label {
+  color: var(--color-cobalt-light);
+}
+
+.aakar-studio__tools-list {
+  color: var(--text-on-dark-muted);
+  font-size: var(--fs-body-sm);
+  letter-spacing: var(--ls-wide);
+}
+
+.aakar-studio__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-lg);
+  align-items: center;
+}
+
+/* ---------- timeline ---------- */
+.aakar-studio__timeline {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+  gap: var(--space-lg);
+  margin-top: var(--space-3xl);
+  padding-top: var(--space-xl);
+  border-top: var(--border-width) solid var(--border-dark);
+}
+
+.aakar-studio__milestone {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  padding-top: var(--space-sm);
+  border-top: 1px solid var(--color-cobalt);
+}
+
+.aakar-studio__milestone-year {
+  font-family: var(--font-display);
+  font-size: var(--fs-h4);
+  font-weight: var(--fw-light);
+  font-variant-numeric: tabular-nums;
+}
+
+.aakar-studio__milestone-label {
+  font-size: var(--fs-body-sm);
+  color: var(--text-on-dark);
+}
+
+.aakar-studio__milestone-note {
+  font-size: var(--fs-caption);
+  color: var(--text-on-dark-muted);
+  line-height: var(--lh-relaxed);
+}
+
+@media (min-width: 900px) {
+  .aakar-studio__inner {
+    grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr);
+    gap: var(--space-3xl);
+    align-items: start;
+  }
+
+  .aakar-studio__portrait {
+    position: sticky;
+    top: calc(var(--layout-nav-h) + var(--space-xl));
+  }
+}

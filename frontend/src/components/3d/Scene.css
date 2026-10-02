@@ -1,0 +1,74 @@
+/* ==========================================================================
+   AAKAR — 3D stage
+   The canvas sits in a framed plate: hairline border, technical caption, and a
+   sizing contract (aspect-ratio) so the canvas never collapses on first paint.
+   ========================================================================== */
+
+.aakar-scene {
+  position: relative;
+  width: 100%;
+  aspect-ratio: var(--scene-ratio, 4 / 5);
+  border: var(--border-width) solid var(--border-dark);
+  background-color: var(--color-obsidian);
+  overflow: hidden;
+  touch-action: pan-y;
+}
+
+.aakar-scene[data-controls='orbit'] {
+  cursor: grab;
+}
+
+.aakar-scene[data-controls='orbit']:active {
+  cursor: grabbing;
+}
+
+.aakar-scene__canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  outline: none;
+}
+
+.aakar-scene__badge {
+  position: absolute;
+  left: var(--space-md);
+  bottom: var(--space-md);
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  color: var(--text-on-dark-muted);
+  pointer-events: none;
+}
+
+.aakar-scene__badge::before {
+  content: '';
+  width: 0.375rem;
+  height: 0.375rem;
+  background-color: var(--color-cobalt);
+}
+
+/* Hard failure (WebGL context lost): the plate replaces the canvas in place. */
+.aakar-scene--fallback {
+  border-style: dashed;
+  background-color: transparent;
+}
+
+/* 2D stand-in used when 3D is unavailable */
+.aakar-modelfallback {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.aakar-modelfallback__note {
+  color: var(--on-surface-muted, var(--text-secondary));
+}
+
+@media (max-width: 899px) {
+  .aakar-scene {
+    aspect-ratio: var(--scene-ratio-mobile, 4 / 5);
+  }
+}

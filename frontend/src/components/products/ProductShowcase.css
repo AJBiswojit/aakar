@@ -1,0 +1,87 @@
+/* AAKAR — ProductShowcase: one editorial feature, then a restrained grid */
+
+.aakar-showcase {
+  background-color: var(--color-white);
+}
+
+.aakar-showcase__feature {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-xl);
+  padding-block: var(--space-xl);
+  border-top: var(--border-width) solid var(--border-light);
+}
+
+.aakar-showcase__feature-media {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  background-color: var(--color-obsidian);
+}
+
+.aakar-showcase__feature-media .aakar-plate__image {
+  transition: transform var(--duration-slower) var(--ease-out-expo);
+}
+
+.aakar-showcase__feature-media:hover .aakar-plate__image,
+.aakar-showcase__feature-media:focus-visible .aakar-plate__image {
+  transform: scale(1.025);
+}
+
+.aakar-showcase__feature-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  max-width: 34rem;
+}
+
+.aakar-showcase__feature-index {
+  color: var(--color-cobalt);
+}
+
+.aakar-showcase__feature-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-light);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-display);
+}
+
+.aakar-showcase__feature-description {
+  max-width: 48ch;
+  color: var(--text-secondary);
+  line-height: var(--lh-relaxed);
+}
+
+.aakar-showcase__feature-price {
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-light);
+  font-variant-numeric: tabular-nums;
+}
+
+.aakar-showcase__feature-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-lg);
+  align-items: center;
+  margin-top: var(--space-sm);
+}
+
+.aakar-showcase__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+  gap: var(--space-xl) var(--space-lg);
+  margin-top: var(--space-3xl);
+  padding-top: var(--space-2xl);
+  border-top: var(--border-width) solid var(--border-light);
+}
+
+@media (min-width: 900px) {
+  .aakar-showcase__feature {
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+    gap: var(--space-3xl);
+    align-items: center;
+    padding-block: var(--space-2xl);
+  }
+}

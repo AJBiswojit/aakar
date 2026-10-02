@@ -1,0 +1,38 @@
+/* AAKAR — Kicker: technical section label */
+
+.aakar-kicker {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  font-family: var(--font-body);
+  font-size: var(--fs-label);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-label);
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--on-surface-muted, var(--text-secondary));
+}
+
+.aakar-kicker--center {
+  justify-content: center;
+}
+
+.aakar-kicker__index {
+  font-variant-numeric: tabular-nums;
+  color: var(--on-surface, var(--text-primary));
+  opacity: 0.45;
+}
+
+.aakar-kicker__rule {
+  width: 2.5rem;
+  height: 1px;
+  background-color: var(--color-cobalt);
+}
+
+[data-theme='dark'] .aakar-kicker__rule {
+  background-color: var(--color-cobalt-light);
+}
+
+.aakar-kicker__label {
+  color: inherit;
+}

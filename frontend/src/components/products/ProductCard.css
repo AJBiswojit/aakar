@@ -1,0 +1,107 @@
+/* AAKAR — ProductCard
+   Squared, hairline-divided, technical. The image carries the card; the type
+   carries the facts. No shadow, no radius, no floating chrome. */
+
+.aakar-productcard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  position: relative;
+}
+
+.aakar-productcard__media {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  background-color: var(--color-obsidian);
+}
+
+.aakar-productcard__media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: var(--border-width) solid transparent;
+  transition: border-color var(--transition-normal);
+  pointer-events: none;
+}
+
+.aakar-productcard__media .aakar-plate__image {
+  transition: transform var(--duration-slower) var(--ease-out-expo);
+}
+
+.aakar-productcard__media:hover .aakar-plate__image,
+.aakar-productcard__media:focus-visible .aakar-plate__image {
+  transform: scale(1.03);
+}
+
+.aakar-productcard__media:hover::after,
+.aakar-productcard__media:focus-visible::after {
+  border-color: var(--color-cobalt);
+}
+
+.aakar-productcard__badge3d {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: 0.5rem 0.75rem;
+  background-color: var(--color-cobalt);
+  color: var(--text-on-cobalt);
+}
+
+.aakar-productcard__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  padding-top: var(--space-sm);
+  border-top: var(--border-width) solid var(--border-light);
+}
+
+.aakar-productcard__category {
+  color: var(--text-secondary);
+}
+
+.aakar-productcard__name {
+  font-family: var(--font-display);
+  font-size: var(--fs-h4);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-heading);
+  line-height: var(--lh-snug);
+}
+
+.aakar-productcard__price {
+  font-size: var(--fs-body-sm);
+  font-variant-numeric: tabular-nums;
+  color: var(--text-primary);
+}
+
+.aakar-productcard__badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs) var(--space-sm);
+  margin-top: var(--space-xs);
+}
+
+.aakar-productcard__badge {
+  padding: 0.25rem 0.5rem;
+  border: var(--border-width) solid var(--border-light);
+  color: var(--text-secondary);
+  line-height: 1;
+}
+
+/* Dark surfaces (product page, dark collections) */
+[data-theme='dark'] .aakar-productcard__body {
+  border-top-color: var(--border-dark);
+}
+
+[data-theme='dark'] .aakar-productcard__badge {
+  border-color: var(--border-dark);
+  color: var(--text-on-dark-muted);
+}
+
+[data-theme='dark'] .aakar-productcard__category,
+[data-theme='dark'] .aakar-productcard__price {
+  color: var(--text-on-dark-muted);
+}

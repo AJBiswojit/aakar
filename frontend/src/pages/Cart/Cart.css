@@ -1,0 +1,108 @@
+/* AAKAR — Cart: information surface, hairline lines, one cobalt action */
+
+.aakar-cart {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  min-height: 80vh;
+  padding-top: calc(var(--layout-nav-h) + var(--space-3xl));
+  padding-bottom: var(--space-3xl);
+}
+
+.aakar-cart__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-h1);
+  font-weight: var(--fw-light);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-display);
+  text-transform: uppercase;
+}
+
+.aakar-cart__body {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-2xl);
+  margin-top: var(--space-xl);
+}
+
+.aakar-cart__lines {
+  border-top: var(--border-width) solid var(--border-light);
+}
+
+.aakar-cart__line {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: var(--space-md);
+  padding-block: var(--space-lg);
+  border-bottom: var(--border-width) solid var(--border-light);
+}
+
+.aakar-cart__line-main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.aakar-cart__line-name {
+  font-family: var(--font-display);
+  font-size: var(--fs-h4);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-heading);
+}
+
+.aakar-cart__line-meta {
+  color: var(--text-secondary);
+}
+
+.aakar-cart__line-price {
+  font-variant-numeric: tabular-nums;
+}
+
+.aakar-cart__remove {
+  display: inline-flex;
+  padding: var(--space-xs);
+  color: var(--text-secondary);
+  transition: color var(--transition-fast);
+}
+
+.aakar-cart__remove:hover {
+  color: var(--color-cobalt);
+}
+
+.aakar-cart__summary {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  align-items: flex-start;
+  align-self: start;
+  padding: var(--space-xl);
+  border: var(--border-width) solid var(--border-light);
+  background-color: var(--color-soft-white);
+}
+
+.aakar-cart__summary-label {
+  color: var(--text-secondary);
+}
+
+.aakar-cart__subtotal {
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-light);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.aakar-cart__summary-note {
+  max-width: 34ch;
+  color: var(--text-secondary);
+  font-size: var(--fs-body-sm);
+  line-height: var(--lh-relaxed);
+}
+
+@media (min-width: 900px) {
+  .aakar-cart__body {
+    grid-template-columns: minmax(0, 1.6fr) minmax(18rem, 0.8fr);
+    gap: var(--space-3xl);
+  }
+}

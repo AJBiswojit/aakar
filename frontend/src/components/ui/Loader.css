@@ -1,0 +1,42 @@
+/* AAKAR — Loader: one cobalt rule, one label. Nothing decorative. */
+
+.aakar-loader {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  align-items: center;
+  justify-content: center;
+  padding-block: var(--space-3xl);
+  color: var(--on-surface-muted, var(--text-secondary));
+}
+
+.aakar-loader--inline {
+  flex-direction: row;
+  padding-block: 0;
+  align-items: center;
+}
+
+.aakar-loader__track {
+  position: relative;
+  display: block;
+  width: min(14rem, 60%);
+  height: 1px;
+  overflow: hidden;
+  background-color: var(--hairline, var(--border-light));
+}
+
+.aakar-loader--inline .aakar-loader__track {
+  width: 3.5rem;
+}
+
+.aakar-loader__bar {
+  position: absolute;
+  inset-block: 0;
+  width: 40%;
+  background-color: var(--color-cobalt);
+  animation: aakar-line-travel 1.4s var(--ease-in-out) infinite;
+}
+
+[data-theme='dark'] .aakar-loader__bar {
+  background-color: var(--color-cobalt-light);
+}

@@ -1,0 +1,86 @@
+/* AAKAR — CustomProjectCta: BLACK / CTA */
+
+.aakar-cta {
+  position: relative;
+  background-color: var(--color-black);
+  color: var(--text-on-dark);
+  overflow: hidden;
+}
+
+.aakar-cta__inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  align-items: flex-start;
+}
+
+.aakar-cta__title {
+  max-width: 16ch;
+  font-family: var(--font-display);
+  font-size: var(--fs-h1);
+  font-weight: var(--fw-light);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-display);
+  text-transform: uppercase;
+}
+
+.aakar-cta__lead {
+  max-width: 52ch;
+  color: var(--text-on-dark-muted);
+  font-size: var(--fs-lead);
+  line-height: var(--lh-relaxed);
+}
+
+.aakar-cta__steps {
+  display: grid;
+  gap: var(--space-sm);
+  margin-top: var(--space-lg);
+  width: 100%;
+  max-width: 44rem;
+}
+
+.aakar-cta__step {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-md);
+  padding-block: var(--space-sm);
+  border-top: var(--border-width) solid var(--border-dark);
+  font-size: var(--fs-body-sm);
+  color: var(--text-on-dark);
+}
+
+.aakar-cta__step:last-child {
+  border-bottom: var(--border-width) solid var(--border-dark);
+}
+
+.aakar-cta__step-index {
+  color: var(--color-cobalt-light);
+}
+
+.aakar-cta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-xl);
+  margin-top: var(--space-lg);
+}
+
+.aakar-cta__email {
+  color: var(--text-on-dark-muted);
+  border-bottom: var(--border-width) solid var(--border-dark);
+  padding-bottom: 0.35rem;
+  transition: color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.aakar-cta__email:hover {
+  color: var(--color-cobalt-light);
+  border-bottom-color: var(--color-cobalt-light);
+}
+
+.aakar-cta__rule {
+  display: block;
+  width: 100%;
+  height: 1px;
+  margin-top: var(--space-3xl);
+  background-color: var(--color-cobalt);
+}

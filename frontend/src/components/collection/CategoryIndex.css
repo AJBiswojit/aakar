@@ -1,0 +1,91 @@
+/* AAKAR — CategoryIndex: taxonomy as an index, not a card wall */
+
+.aakar-categories {
+  background-color: var(--color-soft-white);
+}
+
+.aakar-categories__all {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  color: var(--color-cobalt);
+}
+
+.aakar-categories__list {
+  display: grid;
+  border-top: var(--border-width) solid var(--border-light);
+}
+
+.aakar-categories__item {
+  border-bottom: var(--border-width) solid var(--border-light);
+}
+
+.aakar-categories__link {
+  display: grid;
+  grid-template-columns: 2.5rem 1fr;
+  align-items: baseline;
+  gap: var(--space-xs) var(--space-md);
+  padding-block: var(--space-lg);
+  color: inherit;
+}
+
+.aakar-categories__count {
+  font-family: var(--font-display);
+  font-size: var(--fs-caption);
+  font-variant-numeric: tabular-nums;
+  color: var(--text-secondary);
+  transition: color var(--transition-fast);
+}
+
+.aakar-categories__name {
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-light);
+  letter-spacing: var(--ls-heading);
+  line-height: var(--lh-snug);
+  transition: transform var(--transition-normal), color var(--transition-fast);
+}
+
+.aakar-categories__description {
+  grid-column: 2;
+  max-width: 60ch;
+  color: var(--text-secondary);
+  font-size: var(--fs-body-sm);
+  line-height: var(--lh-relaxed);
+}
+
+.aakar-categories__tally {
+  grid-column: 2;
+  color: var(--text-secondary);
+}
+
+.aakar-categories__link:hover .aakar-categories__name,
+.aakar-categories__link:focus-visible .aakar-categories__name {
+  color: var(--color-cobalt);
+  transform: translateX(var(--space-xs));
+}
+
+.aakar-categories__link:hover .aakar-categories__count {
+  color: var(--color-cobalt);
+}
+
+@media (min-width: 900px) {
+  .aakar-categories__link {
+    grid-template-columns: 3.5rem minmax(12rem, 20rem) 1fr auto;
+    align-items: center;
+    padding-block: var(--space-xl);
+  }
+
+  .aakar-categories__name {
+    grid-column: 2;
+  }
+
+  .aakar-categories__description {
+    grid-column: 3;
+  }
+
+  .aakar-categories__tally {
+    grid-column: 4;
+    text-align: right;
+  }
+}

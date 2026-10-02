@@ -1,0 +1,176 @@
+/* ==========================================================================
+   AAKAR — ANIMATION SYSTEM
+   Direction: CINEMATIC > FLASHY.
+   Motion is used to reveal form: masks, slow scale, hairlines drawing in,
+   parallax. Never constant floating, never random motion.
+
+   JS-driven motion (GSAP timelines, Lenis smooth scroll) lives in hooks and
+   reads the same durations/eases from tokens.css.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   KEYFRAMES
+   -------------------------------------------------------------------------- */
+@keyframes aakar-fade-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 1.75rem, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes aakar-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Mask reveal — content rises out of an overflow-hidden frame */
+@keyframes aakar-mask-up {
+  from {
+    transform: translate3d(0, 110%, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Cobalt hairline drawing across the layout */
+@keyframes aakar-line-draw {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Slow, mechanical drift for loaders / progress rules */
+@keyframes aakar-line-travel {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes aakar-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   REVEAL UTILITIES
+   Elements opt in with [data-reveal="up|fade|mask|line"].
+   hooks/useReveal.js adds .is-revealed when the element enters the viewport.
+   -------------------------------------------------------------------------- */
+[data-reveal] {
+  will-change: opacity, transform;
+}
+
+[data-reveal='up'] {
+  opacity: 0;
+  transform: translate3d(0, 1.75rem, 0);
+}
+
+[data-reveal='fade'] {
+  opacity: 0;
+}
+
+[data-reveal='mask'] > * {
+  display: block;
+  transform: translate3d(0, 110%, 0);
+}
+
+[data-reveal='mask'] {
+  overflow: hidden;
+}
+
+[data-reveal='line'] {
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+.is-revealed[data-reveal='up'],
+.is-revealed[data-reveal='fade'] {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  transition:
+    opacity var(--duration-slow) var(--ease-smooth) var(--reveal-delay, 0ms),
+    transform var(--duration-slow) var(--ease-out-expo) var(--reveal-delay, 0ms);
+}
+
+.is-revealed[data-reveal='fade'] {
+  transition-duration: var(--duration-slower);
+}
+
+.is-revealed[data-reveal='mask'] > * {
+  transform: translate3d(0, 0, 0);
+  transition: transform var(--duration-slower) var(--ease-out-expo) var(--reveal-delay, 0ms);
+}
+
+.is-revealed[data-reveal='line'] {
+  transform: scaleX(1);
+  transition: transform var(--duration-slower) var(--ease-out-expo) var(--reveal-delay, 0ms);
+}
+
+/* --------------------------------------------------------------------------
+   INTERACTION UTILITIES
+   -------------------------------------------------------------------------- */
+/* Links that grow a cobalt rule from the left on hover */
+.aakar-underline {
+  position: relative;
+  display: inline-block;
+}
+
+.aakar-underline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -0.25rem;
+  width: 100%;
+  height: 1px;
+  background-color: var(--color-cobalt);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--transition-normal);
+}
+
+.aakar-underline:hover::after,
+.aakar-underline:focus-visible::after {
+  transform: scaleX(1);
+}
+
+/* --------------------------------------------------------------------------
+   REDUCED MOTION
+   Every scripted and CSS animation respects the user's preference.
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    transition-delay: 0ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  [data-reveal],
+  [data-reveal] > * {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

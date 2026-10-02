@@ -1,0 +1,229 @@
+/* ==========================================================================
+   AAKAR — Hero
+   BLACK / IMMERSIVE. The first screen must read as an exhibition entrance:
+   editorial type on obsidian, one exhibit, two actions, one cobalt thread.
+   ========================================================================== */
+
+.aakar-hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding-top: calc(var(--layout-nav-h) + var(--space-2xl));
+  padding-bottom: var(--space-2xl);
+  background-color: var(--color-obsidian);
+  color: var(--text-on-dark);
+  overflow: hidden;
+}
+
+/* A single cobalt hairline running the full height of the left gutter —
+   the interaction colour threading the darkest section of the site.
+   Anchored to the container so it stays beside the type on ultra-wide
+   screens instead of drifting to the viewport edge. */
+.aakar-hero__inner::before {
+  content: '';
+  position: absolute;
+  top: calc(-1 * var(--space-2xl));
+  bottom: 0;
+  left: var(--layout-gutter);
+  width: 1px;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    var(--color-cobalt) 22%,
+    var(--color-cobalt) 62%,
+    transparent 100%
+  );
+  opacity: 0.5;
+}
+
+.aakar-hero__inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-2xl);
+  align-items: center;
+  position: relative;
+  z-index: 1;
+  padding-left: calc(var(--layout-gutter) + var(--space-lg));
+}
+
+.aakar-hero__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  max-width: 42rem;
+}
+
+.aakar-hero__meta {
+  color: var(--text-on-dark-muted);
+}
+
+.aakar-hero__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--fs-display);
+  font-weight: var(--fw-light);
+  line-height: var(--lh-tight);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--text-on-dark);
+}
+
+.aakar-hero__mask {
+  display: block;
+  overflow: hidden;
+}
+
+.aakar-hero__tagline {
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-regular);
+  letter-spacing: var(--ls-heading);
+  color: var(--text-on-dark);
+}
+
+.aakar-hero__statement {
+  max-width: 46ch;
+  color: var(--text-on-dark-muted);
+  font-size: var(--fs-lead);
+  line-height: var(--lh-relaxed);
+  font-weight: var(--fw-light);
+}
+
+.aakar-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  margin-top: var(--space-sm);
+}
+
+.aakar-hero__figures {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xl);
+  margin-top: var(--space-xl);
+  padding-top: var(--space-lg);
+  border-top: var(--border-width) solid var(--border-dark);
+}
+
+.aakar-hero__figure {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.aakar-hero__figure dt {
+  color: var(--text-on-dark-muted);
+}
+
+.aakar-hero__figure dd {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-light);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.aakar-hero__availability {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  color: var(--text-on-dark-muted);
+  font-size: var(--fs-body-sm);
+}
+
+.aakar-hero__pulse {
+  width: 0.375rem;
+  height: 0.375rem;
+  background-color: var(--color-cobalt-light);
+}
+
+/* ---------- exhibit ---------- */
+.aakar-hero__stage {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.aakar-hero__stage-inner {
+  will-change: transform;
+}
+
+.aakar-hero__stage-caption {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  color: var(--text-on-dark-muted);
+}
+
+.aakar-hero__stage-rule {
+  flex: 1;
+  height: 1px;
+  background-color: var(--border-dark);
+}
+
+.aakar-hero__scroll {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-top: var(--space-2xl);
+  color: var(--text-on-dark-muted);
+}
+
+.aakar-hero__scroll-line {
+  flex: 1;
+  max-width: 14rem;
+  height: 1px;
+  background: linear-gradient(to right, var(--color-cobalt) 0%, transparent 100%);
+  transform-origin: left center;
+  animation: aakar-line-draw 1.6s var(--ease-out-expo) 0.6s both;
+}
+
+/* ---------- layout ---------- */
+@media (min-width: 900px) {
+  .aakar-hero__inner {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    gap: var(--space-2xl);
+  }
+
+  .aakar-hero__stage {
+    padding-left: var(--space-lg);
+  }
+}
+
+@media (min-width: 1440px) {
+  .aakar-hero__inner {
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+  }
+
+  .aakar-hero__content {
+    gap: var(--space-xl);
+  }
+}
+
+@media (max-width: 899px) {
+  .aakar-hero {
+    min-height: auto;
+    padding-bottom: var(--space-3xl);
+  }
+
+  .aakar-hero__inner::before {
+    display: none;
+  }
+
+  .aakar-hero__inner {
+    padding-left: var(--layout-gutter);
+  }
+
+  .aakar-hero__figures {
+    gap: var(--space-lg);
+  }
+
+  .aakar-hero__scroll {
+    display: none;
+  }
+}

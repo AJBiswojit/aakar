@@ -1,0 +1,139 @@
+/* AAKAR — FeaturedWork: editorial index of exhibited work */
+
+.aakar-work {
+  background-color: var(--color-white);
+}
+
+.aakar-work__index {
+  display: grid;
+  gap: var(--space-3xl);
+}
+
+.aakar-work__entry {
+  padding-top: var(--space-lg);
+  border-top: var(--border-width) solid var(--border-light);
+}
+
+.aakar-work__link {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+  color: inherit;
+}
+
+.aakar-work__head {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: baseline;
+  gap: var(--space-sm) var(--space-lg);
+}
+
+.aakar-work__number {
+  font-family: var(--font-display);
+  font-size: var(--fs-body-sm);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-cobalt);
+}
+
+.aakar-work__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-light);
+  letter-spacing: var(--ls-heading);
+  color: var(--text-primary);
+  transition: color var(--transition-fast);
+}
+
+.aakar-work__facts {
+  grid-column: 2;
+  color: var(--text-secondary);
+}
+
+.aakar-work__open {
+  grid-column: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  color: var(--color-cobalt);
+  opacity: 0;
+  transform: translateY(0.25rem);
+  transition:
+    opacity var(--transition-normal),
+    transform var(--transition-normal);
+}
+
+.aakar-work__media {
+  overflow: hidden;
+}
+
+.aakar-work__media .aakar-plate__image {
+  transition: transform var(--duration-slower) var(--ease-out-expo);
+}
+
+.aakar-work__link:hover .aakar-plate__image,
+.aakar-work__link:focus-visible .aakar-plate__image {
+  transform: scale(1.02);
+}
+
+.aakar-work__excerpt {
+  max-width: 52ch;
+  color: var(--text-secondary);
+  font-size: var(--fs-body-sm);
+  line-height: var(--lh-relaxed);
+}
+
+.aakar-work__discipline {
+  color: var(--text-secondary);
+}
+
+.aakar-work__link:hover .aakar-work__title {
+  color: var(--color-cobalt);
+}
+
+.aakar-work__link:hover .aakar-work__open,
+.aakar-work__link:focus-visible .aakar-work__open {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (min-width: 900px) {
+  /* Named areas: one description column beside the plate, nothing overlapping,
+     nothing that depends on auto-placement order. */
+  .aakar-work__link {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.7fr);
+    grid-template-areas:
+      'head media'
+      'excerpt media'
+      'discipline media';
+    column-gap: var(--space-2xl);
+    row-gap: var(--space-md);
+  }
+
+  .aakar-work__head {
+    grid-area: head;
+    grid-template-columns: 1fr;
+    gap: var(--space-sm);
+    align-content: start;
+  }
+
+  .aakar-work__facts,
+  .aakar-work__open {
+    grid-column: 1;
+  }
+
+  .aakar-work__media {
+    grid-area: media;
+    align-self: start;
+  }
+
+  .aakar-work__excerpt {
+    grid-area: excerpt;
+    align-self: end;
+    padding-top: var(--space-md);
+  }
+
+  .aakar-work__discipline {
+    grid-area: discipline;
+  }
+}
