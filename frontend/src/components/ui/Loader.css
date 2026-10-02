@@ -16,6 +16,19 @@
   align-items: center;
 }
 
+.aakar-loader--line {
+  flex-direction: column;
+}
+
+.aakar-loader--inline {
+  flex-direction: row;
+}
+
+.aakar-loader__label {
+  color: inherit;
+  opacity: 0.75;
+}
+
 .aakar-loader__track {
   position: relative;
   display: block;
@@ -25,7 +38,20 @@
   background-color: var(--hairline, var(--border-light));
 }
 
-.aakar-loader--inline .aakar-loader__track {
+.aakar-loader--inline .aakar-loader--line {
+  flex-direction: column;
+}
+
+.aakar-loader--inline {
+  flex-direction: row;
+}
+
+.aakar-loader__label {
+  color: inherit;
+  opacity: 0.75;
+}
+
+.aakar-loader__track {
   width: 3.5rem;
 }
 

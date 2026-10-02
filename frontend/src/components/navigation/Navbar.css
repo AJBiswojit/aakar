@@ -103,6 +103,15 @@
   gap: var(--space-lg);
 }
 
+.aakar-navlinks--bar {
+  flex-direction: row;
+  align-items: center;
+}
+
+.aakar-navlinks__item {
+  display: inline-flex;
+}
+
 .aakar-navlinks__link {
   position: relative;
   display: inline-block;

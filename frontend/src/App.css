@@ -9,6 +9,11 @@
   z-index: var(--z-base);
 }
 
+/* The seam where the page content hands over to the obsidian footer. */
+.aakar-main + .aakar-footer {
+  border-top: var(--border-width) solid var(--border-dark);
+}
+
 .aakar-route-fallback {
   display: flex;
   align-items: center;

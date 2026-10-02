@@ -247,11 +247,6 @@ ol {
   padding-block: clamp(3rem, 1.5rem + 5vw, 6rem);
 }
 
-.aakar-hairline {
-  border: 0;
-  border-top: var(--border-width) solid var(--hairline, var(--border-light));
-}
-
 /* Skip link — keyboard users land here first */
 .aakar-skip-link {
   position: absolute;

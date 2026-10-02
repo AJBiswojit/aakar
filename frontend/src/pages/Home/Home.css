@@ -1,12 +1,7 @@
 /* AAKAR — Home
    Section surfaces are declared per section (data-theme), so the page itself
-   only guarantees the alternating rhythm reads cleanly at every breakpoint. */
+   only guarantees the alternating rhythm reads cleanly at every breakpoint:
 
-.aakar-home {
-  display: block;
-}
-
-/* The seam between two dark sections: a hairline, never a colour jump. */
-.aakar-cta + .aakar-footer {
-  border-top: var(--border-width) solid var(--border-dark);
-}
+     BLACK  hero  →  WHITE  work  →  SOFT  catalogue  →  WHITE  store
+     →  BLACK  studio  →  BLACK  commissions  →  OBSIDIAN  footer
+*/

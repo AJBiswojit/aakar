@@ -35,6 +35,12 @@
   border-top: var(--border-width) solid var(--border-light);
 }
 
+.aakar-placeholder__contents {
+  display: grid;
+  gap: var(--space-sm);
+  max-width: 72rem;
+}
+
 .aakar-placeholder__contents-title {
   color: var(--text-secondary);
 }
