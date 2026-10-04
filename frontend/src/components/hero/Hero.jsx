@@ -66,9 +66,11 @@ export function Hero() {
           alt="AAKAR hero sculpture: an armored character bust lit in a dark gallery with a cobalt rim light"
           modelUrl={showcase?.model?.previewUrl}
           priority
-          sizes="100vw"
           className="h-full w-full"
           imageFadeClass="opacity-[0.18]"
+          imageBackdropClass="opacity-[0.55]"
+          imgWidth={1376}
+          imgHeight={768}
           imgClassName="object-[62%_45%] lg:object-[58%_42%]"
           onStatus={setSceneStatus}
         />

@@ -162,5 +162,6 @@ html.lenis body {
   .link-underline::after {
     transition: none !important;
     transform: none !important;
+    scale: none !important;
   }
 }

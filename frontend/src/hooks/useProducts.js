@@ -3,7 +3,7 @@ import {
   getFeaturedProducts as fetchFeaturedProducts,
   getProducts as fetchProducts,
   getShowcaseProduct as fetchShowcaseProduct,
-} from "@/services/mock/products.service";
+} from "@/services";
 
 const EMPTY_PRODUCTS = [];
 

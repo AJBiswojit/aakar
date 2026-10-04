@@ -50,6 +50,7 @@ export function Cursor() {
 
     const onDown = () => gsap.to(ring, { scale: hovering ? 0.86 : 0.3, duration: 0.25 });
     const onUp = () => gsap.to(ring, { scale: hovering ? 1 : 0.42, duration: 0.35 });
+    const label = labelRef.current;
 
     window.addEventListener("pointermove", onMove, { passive: true });
     window.addEventListener("pointerdown", onDown);
@@ -60,6 +61,10 @@ export function Cursor() {
       window.removeEventListener("pointermove", onMove);
       window.removeEventListener("pointerdown", onDown);
       window.removeEventListener("pointerup", onUp);
+      /* kill the quickTo tweens + any in-flight ring/label tweens */
+      gsap.killTweensOf(dot);
+      gsap.killTweensOf(ring);
+      if (label) gsap.killTweensOf(label);
     };
   }, [fine, reduced]);
 

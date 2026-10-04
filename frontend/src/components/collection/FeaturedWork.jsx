@@ -102,7 +102,8 @@ export function FeaturedWork() {
                       alt={`${work.title} — ${work.kind.toLowerCase()} 3D artwork by AAKAR`}
                       loading={i < 2 ? "eager" : "lazy"}
                       fetchPriority={i === 0 ? "high" : "auto"}
-                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1600ms] ease-out group-hover/work:scale-[1.05]"
+                      decoding="async"
+                      className="absolute inset-0 h-full w-full object-cover transition-[scale,filter] duration-[1600ms] ease-out group-hover/work:scale-[1.05]"
                       data-parallax={i % 2 === 0 ? 22 : -22}
                     />
                   </Mask>

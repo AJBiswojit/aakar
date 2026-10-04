@@ -1,10 +1,12 @@
 import { Component, Suspense, useEffect, useRef, useState } from "react";
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useFrame } from "@react-three/fiber";
 import { cx } from "@/utils/format";
 
 /**
  * Scene = the only place a WebGL context is created in the homepage.
- *  - reports readiness so the hero loader can dismiss
+ *  - reports context creation (`onContext`) separately from presentation
+ *  - reports `onPresent` only once the suspended 3D content has actually
+ *    mounted AND rendered a couple of frames — never on context creation
  *  - pauses its frameloop when scrolled out of view
  *  - any context failure renders `fallback` instead of a broken canvas
  */
@@ -28,13 +30,35 @@ class SceneBoundary extends Component {
   }
 }
 
+/**
+ * Mounts inside the same <Suspense> as the scene content, so it commits only
+ * after every suspending loader (useGLTF, Environment, …) has resolved. It then
+ * waits a couple of rendered frames before declaring the scene "presenting".
+ */
+function PresentSignal({ onPresent, frames = 2 }) {
+  const rendered = useRef(0);
+  const done = useRef(false);
+
+  useFrame(() => {
+    if (done.current) return;
+    rendered.current += 1;
+    if (rendered.current >= frames) {
+      done.current = true;
+      onPresent?.();
+    }
+  });
+
+  return null;
+}
+
 export function Scene({
   fallback,
   className,
   children,
   camera = { position: [0, 0.35, 6.4], fov: 32, near: 0.1, far: 40 },
   dpr = [1, 1.8],
-  onReady,
+  onContext,
+  onPresent,
   onError,
   ...rest
 }) {
@@ -65,11 +89,14 @@ export function Scene({
           dpr={dpr}
           gl={{ antialias: true, alpha: true, powerPreference: "high-performance", preserveDrawingBuffer: false }}
           camera={camera}
-          onCreated={() => onReady?.()}
+          onCreated={() => onContext?.()}
           {...rest}
         >
           <SceneBoundary fallback={null} onError={handleError}>
-            <Suspense fallback={null}>{children}</Suspense>
+            <Suspense fallback={null}>
+              {children}
+              <PresentSignal onPresent={onPresent} />
+            </Suspense>
           </SceneBoundary>
         </Canvas>
       </SceneBoundary>

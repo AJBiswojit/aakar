@@ -37,7 +37,7 @@ export function ProcessSection() {
       data-nav-id="about"
       data-nav-theme="dark"
       ref={rootRef}
-      className="tone-dark grain section overflow-hidden py-[clamp(5rem,11vh,9rem)]"
+      className="tone-dark grain section py-[clamp(5rem,11vh,9rem)]"
     >
       <div className="shell">
         <header className="flex flex-col gap-6 border-b border-white/10 pb-8 md:flex-row md:items-end md:justify-between">

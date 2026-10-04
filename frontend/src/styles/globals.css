@@ -174,8 +174,10 @@ canvas {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    /* `scale`/`filter` only — GSAP owns `transform` for scroll parallax, so a
+       long transform transition here would smear every scrub tick. */
     transition:
-      transform 1.4s var(--ease-out-soft),
+      scale 1.4s var(--ease-out-soft),
       filter 0.9s ease;
   }
 

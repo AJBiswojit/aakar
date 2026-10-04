@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { ScrollTrigger } from "@/utils/gsap";
 import { cx } from "@/utils/format";
 import { IconBag, IconHeart, IconMenu, IconSearch } from "@/components/ui/Icons";
 import { useCart } from "@/hooks/useCart";
@@ -26,49 +27,90 @@ export function Navbar() {
   const [tone, setTone] = useState("dark");
   const [active, setActive] = useState("");
   const frame = useRef(0);
+  /* document-relative section geometry, rebuilt only when layout can change —
+     scroll frames then read this cache instead of forcing layout */
+  const layoutRef = useRef({ nodes: [], docHeight: 0 });
 
   const links = site?.navigation?.links ?? [];
 
+  const rebuild = useCallback(() => {
+    const y = window.scrollY || document.documentElement.scrollTop || 0;
+    const nodes = [];
+    document.querySelectorAll("[data-nav-theme]").forEach((el) => {
+      const r = el.getBoundingClientRect();
+      nodes.push({ kind: "theme", value: el.getAttribute("data-nav-theme"), top: r.top + y, bottom: r.bottom + y });
+    });
+    document.querySelectorAll("[data-nav-id]").forEach((el) => {
+      const r = el.getBoundingClientRect();
+      nodes.push({ kind: "id", value: el.getAttribute("data-nav-id"), top: r.top + y, bottom: r.bottom + y });
+    });
+    layoutRef.current = { nodes, docHeight: document.documentElement.scrollHeight };
+  }, []);
+
   const measure = useCallback(() => {
-    const doc = document.documentElement;
-    const max = doc.scrollHeight - window.innerHeight;
-    const y = window.scrollY || doc.scrollTop || 0;
+    const { nodes, docHeight } = layoutRef.current;
+    const vh = window.innerHeight;
+    const y = window.scrollY || document.documentElement.scrollTop || 0;
+    const max = docHeight - vh;
     setScrollY(y);
     setProgress(max > 0 ? Math.min(1, y / max) : 0);
 
     const line = 88;
-    const themed = document.querySelectorAll("[data-nav-theme]");
     let nextTone = "light";
-    themed.forEach((el) => {
-      const r = el.getBoundingClientRect();
-      if (r.top <= line && r.bottom > line) nextTone = el.getAttribute("data-nav-theme");
-    });
-    setTone(nextTone);
-
     let nextActive = "";
-    document.querySelectorAll("[data-nav-id]").forEach((el) => {
-      const r = el.getBoundingClientRect();
-      if (r.top <= window.innerHeight * 0.42 && r.bottom > window.innerHeight * 0.28) {
-        nextActive = el.getAttribute("data-nav-id");
+    for (const node of nodes) {
+      const top = node.top - y;
+      const bottom = node.bottom - y;
+      if (node.kind === "theme") {
+        if (top <= line && bottom > line) nextTone = node.value;
+      } else if (top <= vh * 0.42 && bottom > vh * 0.28) {
+        nextActive = node.value;
       }
-    });
+    }
+    setTone(nextTone);
     setActive(nextActive);
   }, []);
 
   useEffect(() => {
+    rebuild();
+
+    let queued = 0;
+    const invalidate = () => {
+      if (queued) return;
+      queued = requestAnimationFrame(() => {
+        queued = 0;
+        rebuild();
+        measure();
+      });
+    };
+
     const onScroll = () => {
       cancelAnimationFrame(frame.current);
       frame.current = requestAnimationFrame(measure);
     };
+    const onResize = () => {
+      rebuild();
+      measure();
+    };
+
     frame.current = requestAnimationFrame(measure);
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
+    window.addEventListener("resize", onResize);
+    window.addEventListener("load", invalidate);
+    ScrollTrigger.addEventListener("refresh", invalidate);
+    const mutation = new MutationObserver(invalidate);
+    mutation.observe(document.body, { childList: true, subtree: true });
+
     return () => {
       cancelAnimationFrame(frame.current);
+      if (queued) cancelAnimationFrame(queued);
       window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
+      window.removeEventListener("resize", onResize);
+      window.removeEventListener("load", invalidate);
+      ScrollTrigger.removeEventListener("refresh", invalidate);
+      mutation.disconnect();
     };
-  }, [measure]);
+  }, [measure, rebuild, location.pathname]);
 
   const go = (href) => (event) => {
     if (!href?.startsWith("#")) return;

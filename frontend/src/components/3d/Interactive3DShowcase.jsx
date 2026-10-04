@@ -41,9 +41,11 @@ export function Interactive3DShowcase() {
         image={product.media.hero}
         alt={`${product.name} — interactive 3D model on a dark plinth`}
         modelUrl={product.model.previewUrl}
-        sizes="100vw"
         imgClassName="object-contain"
         imageFadeClass="opacity-[0.14]"
+        imageBackdropClass="opacity-[0.5]"
+        imgWidth={928}
+        imgHeight={1152}
         className="absolute inset-0 h-full w-full"
         sceneProps={{ meshMode, zoom }}
       />

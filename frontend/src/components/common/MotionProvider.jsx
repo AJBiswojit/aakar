@@ -52,6 +52,9 @@ export function MotionProvider({ children }) {
     return () => {
       clearTimeout(timer);
       gsap.ticker.remove(raf);
+      /* restore GSAP's documented default lag smoothing — the global ticker
+         configuration must not stay mutated after this provider unmounts */
+      gsap.ticker.lagSmoothing(500, 33);
       lenis.off("scroll", onScroll);
       lenis.destroy();
       lenisRef.current = null;
@@ -113,10 +116,15 @@ export function MotionProvider({ children }) {
       el.getAttribute("data-mask") === "in" ||
       el.getAttribute("data-cobalt-rule") === "in";
 
+    /* Tracked per effect-lifetime (NOT stamped onto the DOM): a StrictMode
+       remount disconnects the previous observer before its async callback can
+       fire, so every setup pass must be able to observe everything again. */
+    const observed = new WeakSet();
+
     const scan = () => {
       document.querySelectorAll(SELECTOR).forEach((el) => {
-        if (el.dataset.aakarObserved === "1" || isRevealed(el)) return;
-        el.dataset.aakarObserved = "1";
+        if (observed.has(el) || isRevealed(el)) return;
+        observed.add(el);
         observer.observe(el);
       });
     };
@@ -134,6 +142,7 @@ export function MotionProvider({ children }) {
 
     return () => {
       mutation.disconnect();
+      if (queued) cancelAnimationFrame(queued);
       observer.disconnect();
     };
   }, [reduced]);
