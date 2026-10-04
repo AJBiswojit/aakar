@@ -1,4 +1,5 @@
 export { apiRequest } from "./api/client";
+export { cached, clearServiceCache } from "./cache";
 export {
   getCategories,
   getCollections,

@@ -6,8 +6,13 @@ import { GalleryFloor } from "./Gallery";
 import { FormMesh } from "./FormMesh";
 import { Lighting } from "./Lighting";
 import { CameraRig } from "./CameraRig";
+import { FitGroup } from "./framing";
 import { sceneState } from "@/utils/gsap";
 import { cssColor } from "@/utils/cssColor";
+
+/** Gallery floor line for the arrival room — inside the camera frustum so the
+ *  form always reads as exhibited, never floating. */
+export const HERO_FLOOR_Y = -1.35;
 
 /** Hero group: scales down and sinks slightly as the section leaves the frame. */
 function HeroExit({ children, intensity = 1 }) {
@@ -29,22 +34,38 @@ function HeroExit({ children, intensity = 1 }) {
 }
 
 export function HeroScene({ modelUrl, compact = false, reduced = false }) {
+  const baseZ = compact ? 7.6 : 6.5;
+  const baseY = compact ? 0.15 : 0.05;
+
   return (
     <>
       <Lighting intensity={compact ? 0.9 : 1} rim={compact ? 1.3 : 1.75} />
-      <CameraRig parallax={reduced ? 0 : compact ? 0.18 : 0.42} retreat={1.15} baseZ={compact ? 7.6 : 6.5} />
+      <CameraRig parallax={reduced ? 0 : compact ? 0.18 : 0.42} retreat={1.15} baseZ={baseZ} />
       <HeroExit intensity={compact ? 0.6 : reduced ? 0 : 1}>
-        <group position={[0, compact ? 0.15 : 0.05, 0]} rotation={[0, -0.45, 0]}>
-          <FormMesh
-            modelUrl={modelUrl}
-            tone="dark"
-            scale={compact ? 1.05 : 1.5}
-            idle={reduced ? 0 : 0.05}
-            follow={reduced ? 0 : 0.2}
-            still={reduced}
+        <group position={[0, baseY, 0]} rotation={[0, -0.45, 0]}>
+          {/* fitted to the frustum at the camera's nearest approach, so the
+              form can never clip — desktop or portrait — while keeping the
+              floor + contact shadow inside the frame */}
+          <FitGroup floorY={HERO_FLOOR_Y}>
+            <FormMesh
+              modelUrl={modelUrl}
+              tone="dark"
+              idle={reduced ? 0 : 0.05}
+              follow={reduced ? 0 : 0.2}
+              still={reduced}
+            />
+          </FitGroup>
+          <GalleryFloor y={HERO_FLOOR_Y} />
+          <ContactShadows
+            position={[0, HERO_FLOOR_Y + 0.01, 0]}
+            frames={1}
+            opacity={0.62}
+            scale={11}
+            blur={2.8}
+            far={4.2}
+            resolution={512}
+            color={cssColor("--color-ink")}
           />
-          <GalleryFloor y={-1.94} />
-          <ContactShadows position={[0, -1.93, 0]} opacity={0.62} scale={11} blur={2.8} far={4.2} resolution={512} color={cssColor("--color-ink")} />
         </group>
       </HeroExit>
     </>

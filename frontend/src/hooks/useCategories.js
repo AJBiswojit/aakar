@@ -1,5 +1,5 @@
 import { useServiceData } from "./useServiceData";
-import { getCategories } from "@/services/mock/categories.service";
+import { getCategories } from "@/services";
 
 const EMPTY_CATEGORIES = [];
 

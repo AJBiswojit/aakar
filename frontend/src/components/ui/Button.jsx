@@ -72,22 +72,4 @@ export function Button({
   );
 }
 
-export function IconButton({ label, children, className, active, ...rest }) {
-  return (
-    <button
-      type="button"
-      aria-label={label}
-      title={label}
-      className={cx(
-        "relative inline-flex h-9 w-9 items-center justify-center rounded-[2px] border transition-colors duration-400",
-        active ? "border-cobalt text-cobalt" : "border-transparent hover:border-ink/20",
-        className,
-      )}
-      {...rest}
-    >
-      {children}
-    </button>
-  );
-}
-
 export default Button;

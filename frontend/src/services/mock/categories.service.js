@@ -1,10 +1,11 @@
 import categories from "@/mock/data/categories";
 import collections from "@/mock/data/collections";
+import { cached } from "../cache";
 
-export async function getCategories() {
-  return categories;
+export function getCategories() {
+  return cached("categories", () => categories);
 }
 
-export async function getCollections() {
-  return collections;
+export function getCollections() {
+  return cached("collections", () => collections);
 }

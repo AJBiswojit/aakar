@@ -37,7 +37,8 @@ export function ProductCard({ product, index = 0, total = 4, offset = false }) {
           src={product.media.thumbnail}
           alt={`${product.name} — ${product.category.name.toLowerCase()} 3D asset render`}
           loading="lazy"
-          className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1400ms] ease-out group-hover/product:scale-[1.04]"
+          decoding="async"
+          className="absolute inset-0 h-full w-full object-cover transition-[scale] duration-[1400ms] ease-out group-hover/product:scale-[1.04]"
         />
         <span className="pointer-events-none absolute inset-x-0 bottom-0 h-px w-full origin-left scale-x-0 bg-cobalt transition-transform duration-700 ease-out group-hover/product:scale-x-100" />
         <span className="u-label-sm pointer-events-none absolute left-4 top-4 text-white/70 mix-blend-difference">

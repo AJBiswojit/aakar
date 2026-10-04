@@ -52,7 +52,7 @@ function useVesselGeometry(rings = 148) {
   }, [rings]);
 }
 
-export function Vessel({ tone = "dark", wireframe = true, idle = 0.055, follow = 0.22, autorotate = 0, meshMode = "surface", still = false }) {
+export function Vessel({ tone = "dark", wireframe = true, idle = 0.055, follow = 0.22, meshMode = "surface", still = false }) {
   const asMesh = meshMode === "mesh";
   const group = useRef(null);
   const geometry = useVesselGeometry();
@@ -62,12 +62,8 @@ export function Vessel({ tone = "dark", wireframe = true, idle = 0.055, follow =
     if (!g || still) return;
     const t = state.clock.getElapsedTime();
     const drift = Math.sin(t * 0.16) * idle;
-    const spin = g.userData.spin ?? 0;
-    const targetY = drift + state.pointer.x * follow + spin;
+    const targetY = drift + state.pointer.x * follow;
     const targetX = -state.pointer.y * follow * 0.5;
-
-    if (autorotate) g.userData.spin = spin + delta * autorotate;
-    else if (g.userData.spin == null) g.userData.spin = 0;
 
     const k = Math.min(1, delta * 2.6);
     g.rotation.y += (targetY - g.rotation.y) * k;

@@ -70,12 +70,6 @@ export function Mask({ as: Comp = "div", className, children, delay = 0, ...rest
 
 /* ------------------------------- micro content ----------------------------- */
 
-export function MetaDot({ tone }) {
-  return (
-    <span aria-hidden="true" className={cx("mx-3 inline-block h-[3px] w-[3px] rounded-full", tone === "dark" ? "bg-white/40" : "bg-ink/35")} />
-  );
-}
-
 export function Badge({ children, tone, className }) {
   const dark = tone === "dark";
   return (

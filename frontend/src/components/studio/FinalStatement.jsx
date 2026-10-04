@@ -1,11 +1,13 @@
 import { Reveal, RevealLines } from "@/components/ui/SectionLabel";
 import { useSite } from "@/hooks/useSite";
+import { useMotion } from "@/components/common/MotionProvider";
 
 /**
  * The closing beat: the wordmark, the three words, then silence.
  */
 export function FinalStatement() {
   const { data: site } = useSite();
+  const { scrollTo } = useMotion();
   const closing = site?.brandClosing ?? { eyebrow: "AAKAR", lines: ["Form.", "Craft.", "Digital."] };
 
   return (
@@ -35,7 +37,7 @@ export function FinalStatement() {
           </p>
           <button
             type="button"
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            onClick={() => scrollTo(0)}
             className="u-label link-underline text-ink transition-colors hover:text-cobalt"
             data-cursor="TOP"
           >

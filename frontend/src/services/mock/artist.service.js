@@ -1,10 +1,11 @@
 import artist from "@/mock/data/artist";
 import { processMeta, processSteps } from "@/mock/data/process";
+import { cached } from "../cache";
 
-export async function getArtist() {
-  return artist;
+export function getArtist() {
+  return cached("artist", () => artist);
 }
 
-export async function getProcessData() {
-  return { steps: processSteps, meta: processMeta };
+export function getProcessData() {
+  return cached("process", () => ({ steps: processSteps, meta: processMeta }));
 }

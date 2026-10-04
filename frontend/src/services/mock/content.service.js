@@ -1,9 +1,10 @@
 import { brandClosing, storeIntro } from "@/mock/data/collections";
 import works from "@/mock/data/works";
 import * as siteData from "@/mock/data/site";
+import { cached } from "../cache";
 
-export async function getSiteConfig() {
-  return {
+export function getSiteConfig() {
+  return cached("site", () => ({
     brand: siteData.brand,
     hero: siteData.hero,
     navigation: siteData.navigation,
@@ -11,9 +12,9 @@ export async function getSiteConfig() {
     store: { currency: siteData.storeState.currency },
     storeIntro,
     brandClosing,
-  };
+  }));
 }
 
-export async function getFeaturedWorks() {
-  return works;
+export function getFeaturedWorks() {
+  return cached("works", () => works);
 }

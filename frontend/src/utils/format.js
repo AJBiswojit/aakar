@@ -1,6 +1,18 @@
-import { clsx } from "./clsx";
+/** Tiny class joiner — the single home for `cx`/`clsx` in the codebase. */
+export function clsx(...args) {
+  const out = [];
+  for (const arg of args) {
+    if (!arg) continue;
+    if (typeof arg === "string" || typeof arg === "number") out.push(String(arg));
+    else if (Array.isArray(arg)) out.push(clsx(...arg));
+    else if (typeof arg === "object") {
+      for (const [key, value] of Object.entries(arg)) if (value) out.push(key);
+    }
+  }
+  return out.join(" ");
+}
 
-export { clsx };
+
 
 /** ₹ formatting kept in one place — the store may change currency later. */
 export function formatMoney(amount, currency = "INR") {
@@ -35,10 +47,6 @@ export function specBadges(specifications = {}) {
 
 export function clamp(value, min, max) {
   return Math.min(max, Math.max(min, value));
-}
-
-export function toEntries(obj) {
-  return Object.entries(obj ?? {});
 }
 
 export const cx = (...args) => clsx(...args);

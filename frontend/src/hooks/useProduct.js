@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { getProductBySlug } from "@/services/mock/products.service";
+import { getProductBySlug } from "@/services";
 import { useServiceData } from "./useServiceData";
 
 export function useProduct(slug) {

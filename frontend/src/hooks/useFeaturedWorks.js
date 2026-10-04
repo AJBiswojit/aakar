@@ -1,5 +1,5 @@
 import { useServiceData } from "./useServiceData";
-import { getFeaturedWorks } from "@/services/mock/content.service";
+import { getFeaturedWorks } from "@/services";
 
 const EMPTY_WORKS = [];
 

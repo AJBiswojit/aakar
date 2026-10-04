@@ -1,5 +1,5 @@
 import { useServiceData } from "./useServiceData";
-import { getProcessData } from "@/services/mock/artist.service";
+import { getProcessData } from "@/services";
 
 const EMPTY_PROCESS_DATA = { steps: [], meta: {} };
 

@@ -37,8 +37,11 @@ export function StudioSection() {
               <img
                 src={artist.portrait}
                 alt="The AAKAR studio, with a sculpting workspace and a character study on screen"
+                width={928}
+                height={1152}
+                decoding="async"
                 loading="lazy"
-                className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1800ms] ease-out hover:scale-[1.03]"
+                className="absolute inset-0 h-full w-full object-cover transition-[scale] duration-[1800ms] ease-out hover:scale-[1.03]"
               />
             </Mask>
             <div className="mt-4 flex items-center justify-between">
