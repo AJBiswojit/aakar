@@ -1,8 +1,6 @@
-"use client";
-
 import { Component, Suspense, useEffect, useRef, useState } from "react";
 import { Canvas } from "@react-three/fiber";
-import { cx } from "@/lib/format";
+import { cx } from "@/utils/format";
 
 /**
  * Scene = the only place a WebGL context is created in the homepage.
@@ -54,9 +52,14 @@ export function Scene({
 
   if (failed) return <div className={cx("absolute inset-0", className)}>{fallback}</div>;
 
+  const handleError = () => {
+    setFailed(true);
+    onError?.();
+  };
+
   return (
     <div ref={hostRef} className={cx("absolute inset-0", className)} aria-hidden="true">
-      <SceneBoundary fallback={fallback} onError={() => { setFailed(true); onError?.(); }}>
+      <SceneBoundary fallback={fallback} onError={handleError}>
         <Canvas
           frameloop={inView ? "always" : "never"}
           dpr={dpr}
@@ -65,7 +68,9 @@ export function Scene({
           onCreated={() => onReady?.()}
           {...rest}
         >
-          <Suspense fallback={null}>{children}</Suspense>
+          <SceneBoundary fallback={null} onError={handleError}>
+            <Suspense fallback={null}>{children}</Suspense>
+          </SceneBoundary>
         </Canvas>
       </SceneBoundary>
     </div>

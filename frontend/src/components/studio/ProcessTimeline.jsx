@@ -1,10 +1,7 @@
-"use client";
-
 import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
-import { cx } from "@/lib/format";
+import { cx } from "@/utils/format";
 import { SectionLabel, Reveal } from "@/components/ui/SectionLabel";
-import { useProcessData } from "@/hooks/useAakar";
+import { useProcessData } from "@/hooks/useProcessData";
 
 /**
  * ROOM 03.5 — the method. Seven states, one object.
@@ -59,17 +56,17 @@ export function ProcessSection() {
           {/* --------------------------------- plate --------------------------------- */}
           <div className="hidden lg:col-span-5 lg:block">
             <div className="sticky top-[16vh]">
-              <div className="fig relative aspect-4/5 w-full bg-[#0b0d11]">
+              <div className="fig relative aspect-4/5 w-full bg-process-plate">
                 {steps.map((step, i) =>
                   step.image ? (
-                    <Image
+                    <img
                       key={step.id}
                       src={step.image}
                       alt={`${step.name} stage render`}
-                      fill
-                      sizes="45vw"
+                      loading={i === active ? "eager" : "lazy"}
+                      fetchPriority={i === active ? "high" : "auto"}
                       className={cx(
-                        "object-cover transition-opacity duration-[1100ms] ease-out",
+                        "absolute inset-0 h-full w-full object-cover transition-opacity duration-[1100ms] ease-out",
                         active === i ? "opacity-100" : "opacity-0",
                       )}
                     />
@@ -139,7 +136,7 @@ export function ProcessSection() {
 
                     {step.image ? (
                       <div className="fig mt-5 aspect-16/9 w-full lg:hidden">
-                        <Image src={step.image} alt={`${step.name} stage render`} fill sizes="92vw" className="object-cover" />
+                        <img src={step.image} alt={`${step.name} stage render`} loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
                       </div>
                     ) : null}
                   </div>

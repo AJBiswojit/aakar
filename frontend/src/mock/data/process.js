@@ -1,3 +1,8 @@
+import environmentFormImage from "../assets/images/environment-form.jpg";
+import studioProcessImage from "../assets/images/studio-process.jpg";
+import objectFormImage from "../assets/images/object-form.jpg";
+import heroFormImage from "../assets/images/hero-form.jpg";
+
 /**
  * AAKAR — process. Seven states the same idea passes through.
  * `image` is optional per step; the viewer crossfades between states.
@@ -18,7 +23,7 @@ export const processSteps = [
     name: "Blockout",
     line: "Masses only. The form has to read from across the room before it reads up close.",
     stage: "Structure",
-    image: "/assets/process-blockout.jpg",
+    image: environmentFormImage,
   },
   {
     id: "step_03",
@@ -26,7 +31,7 @@ export const processSteps = [
     name: "Sculpt",
     line: "High-frequency detail — anatomy, cloth breaks, carved ornament — at millions of polygons.",
     stage: "Form",
-    image: "/assets/process-sculpt.jpg",
+    image: studioProcessImage,
   },
   {
     id: "step_04",
@@ -34,7 +39,7 @@ export const processSteps = [
     name: "Retopology",
     line: "A clean quad shell rebuilt over the sculpt so the piece can actually move.",
     stage: "Logic",
-    image: "/assets/process-blockout.jpg",
+    image: environmentFormImage,
   },
   {
     id: "step_05",
@@ -50,7 +55,7 @@ export const processSteps = [
     name: "Texture",
     line: "PBR passes painted from physical reference — wear, roughness, the history of an object.",
     stage: "Surface",
-    image: "/assets/process-texture.jpg",
+    image: objectFormImage,
   },
   {
     id: "step_07",
@@ -58,7 +63,7 @@ export const processSteps = [
     name: "Final Form",
     line: "Lit, rendered, published. The idea now holds weight on its own.",
     stage: "Delivery",
-    image: "/assets/showcase-object.jpg",
+    image: heroFormImage,
   },
 ];
 

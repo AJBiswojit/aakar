@@ -1,3 +1,5 @@
+import studioProcessImage from "../assets/images/studio-process.jpg";
+
 /**
  * AAKAR — studio + artist. Deliberately free of invented credentials,
  * awards or client names. Only the practice itself is described.
@@ -6,7 +8,7 @@
 export const artist = {
   eyebrow: "The Studio",
   headline: ["The artist", "behind AAKAR."],
-  portrait: "/assets/studio-portrait.jpg",
+  portrait: studioProcessImage,
   statement:
     "AAKAR is an independent 3D practice focused on building detailed digital forms for games, film, design and imagination.",
   body: [

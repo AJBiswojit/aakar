@@ -1,6 +1,4 @@
-"use client";
-
-import { cx } from "@/lib/format";
+import { cx } from "@/utils/format";
 
 const Arrow = ({ className }) => (
   <svg
@@ -33,7 +31,7 @@ export function Button({
 
   const styles = {
     primary:
-      "bg-cobalt text-white border border-cobalt hover:bg-cobalt-dark hover:border-cobalt-dark shadow-[0_10px_30px_-18px_rgba(23,70,216,0.9)]",
+      "bg-cobalt text-white border border-cobalt hover:bg-cobalt-dark hover:border-cobalt-dark shadow-[0_10px_30px_-18px_rgba(var(--color-cobalt-rgb),0.9)]",
     outline: cx(
       "border bg-transparent hover:border-cobalt",
       dark ? "border-white/25 text-white hover:text-white" : "border-ink/20 text-ink hover:text-cobalt",

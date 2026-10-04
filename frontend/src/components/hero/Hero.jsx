@@ -1,13 +1,12 @@
-"use client";
-
 import { useEffect, useRef, useState } from "react";
-import { gsap } from "@/lib/gsap";
-import { bindHeroScroll, sceneState } from "@/lib/gsap";
+import { gsap } from "@/utils/gsap";
+import { bindHeroScroll, sceneState } from "@/utils/gsap";
 import { CobaltLine, RevealLines } from "@/components/ui/SectionLabel";
 import { Button } from "@/components/ui/Button";
 import { ModelViewer } from "@/components/3d/ModelViewer";
-import { cx } from "@/lib/format";
-import { useSite } from "@/hooks/useAakar";
+import { cx } from "@/utils/format";
+import { useSite } from "@/hooks/useSite";
+import { useShowcaseProduct } from "@/hooks/useProducts";
 import { usePrefersReducedMotion } from "@/hooks/useMotion";
 
 /**
@@ -16,9 +15,9 @@ import { usePrefersReducedMotion } from "@/hooks/useMotion";
  * metadata in the margins, the model reacting to the cursor behind it.
  */
 export function Hero() {
-  const site = useSite();
+  const { data: site } = useSite();
   const hero = site?.hero;
-  const showcase = site?.showcase;
+  const { product: showcase } = useShowcaseProduct();
   const sectionRef = useRef(null);
   const sweepRef = useRef(null);
   const reduced = usePrefersReducedMotion();
@@ -63,7 +62,7 @@ export function Hero() {
       <div className="absolute inset-0">
         <ModelViewer
           mode="hero"
-          image="/assets/hero-form.jpg"
+          image={hero.image}
           alt="AAKAR hero sculpture: an armored character bust lit in a dark gallery with a cobalt rim light"
           modelUrl={showcase?.model?.previewUrl}
           priority

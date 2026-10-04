@@ -1,0 +1,166 @@
+/* Reveal state machine */
+[data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 26px, 0);
+  transition:
+    opacity 1.05s var(--ease-out-soft),
+    transform 1.05s var(--ease-out-soft);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+[data-reveal="in"] {
+  opacity: 1;
+  transform: none;
+}
+
+[data-reveal-line] {
+  display: block;
+  overflow: hidden;
+}
+
+[data-reveal-line] > span {
+  display: block;
+  transform: translate3d(0, 108%, 0);
+  transition: transform 1.15s var(--ease-out-soft);
+  transition-delay: var(--line-delay, 0ms);
+  will-change: transform;
+}
+
+[data-reveal-line="in"] > span {
+  transform: none;
+}
+
+[data-mask] {
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 1.25s var(--ease-out-soft);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+[data-mask="in"] {
+  clip-path: inset(0 0 0 0);
+}
+
+[data-cobalt-rule] {
+  transform: scaleX(0);
+  transition: transform 1.15s var(--ease-out-soft);
+}
+
+[data-cobalt-rule="in"] {
+  transform: scaleX(1);
+}
+
+[data-cobalt-rule][data-axis="y"] {
+  width: 1px;
+  height: 100%;
+  transform: scaleY(0);
+  transform-origin: top center;
+}
+
+[data-cobalt-rule="in"][data-axis="y"] {
+  transform: scaleY(1);
+}
+
+[data-parallax] {
+  will-change: transform;
+}
+
+@keyframes aakar-cue {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(260%);
+    opacity: 0;
+  }
+}
+
+@keyframes aakar-scan {
+  0% {
+    transform: translateX(-110%);
+  }
+  100% {
+    transform: translateX(320%);
+  }
+}
+
+@keyframes aakar-load {
+  0% {
+    transform: scaleX(0);
+    transform-origin: left center;
+  }
+  45% {
+    transform: scaleX(0.72);
+    transform-origin: left center;
+  }
+  55% {
+    transform: scaleX(0.72);
+    transform-origin: right center;
+  }
+  100% {
+    transform: scaleX(0);
+    transform-origin: right center;
+  }
+}
+
+@keyframes aakar-panel {
+  from {
+    opacity: 0;
+    transform: translate3d(var(--panel-enter-x, 2.5rem), var(--panel-enter-y, 0rem), 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Lenis scroll state */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* Reduced motion: retain final visual states without movement */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  [data-reveal],
+  [data-reveal-line] > span,
+  [data-mask] {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+  }
+
+  [data-cobalt-rule] {
+    transform: none !important;
+  }
+
+  .hero__sweep {
+    transform: scaleX(1) !important;
+  }
+
+  .fig img,
+  .link-underline::after {
+    transition: none !important;
+    transform: none !important;
+  }
+}

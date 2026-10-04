@@ -1,3 +1,8 @@
+import heroFormImage from "../assets/images/hero-form.jpg";
+import creatureFormImage from "../assets/images/creature-form.jpg";
+import weaponFormImage from "../assets/images/weapon-form.jpg";
+import environmentFormImage from "../assets/images/environment-form.jpg";
+
 /**
  * AAKAR — selected forms (exhibition pieces).
  * Works reference purchasable products by slug so the exhibition and the
@@ -14,7 +19,7 @@ export const works = [
     productId: "prod_001",
     productSlug: "samurai-beast",
     line: "A warden standing between ceremony and combat.",
-    media: "/assets/work-character.jpg",
+    media: heroFormImage,
     interactive: true,
     layout: { span: "lg", ratio: "4 / 5", column: "left", offset: 0 },
   },
@@ -27,7 +32,7 @@ export const works = [
     productId: "prod_002",
     productSlug: "antlered-warden",
     line: "Anatomy first. Ornament second.",
-    media: "/assets/work-creature.jpg",
+    media: creatureFormImage,
     interactive: true,
     layout: { span: "sm", ratio: "1 / 1", column: "right", offset: 14 },
   },
@@ -40,7 +45,7 @@ export const works = [
     productId: "prod_003",
     productSlug: "obsidian-katana",
     line: "One trim sheet. Hand-painted wear.",
-    media: "/assets/work-weapon.jpg",
+    media: weaponFormImage,
     interactive: false,
     layout: { span: "sm", ratio: "3 / 4", column: "left", offset: 8 },
   },
@@ -53,7 +58,7 @@ export const works = [
     productId: "prod_005",
     productSlug: "monolith-threshold",
     line: "A single shaft of light recomposes the frame.",
-    media: "/assets/work-environment.jpg",
+    media: environmentFormImage,
     interactive: true,
     layout: { span: "lg", ratio: "16 / 9", column: "right", offset: 0 },
   },

@@ -1,5 +1,3 @@
-"use client";
-
 import { useRef } from "react";
 import * as THREE from "three";
 import { useFrame } from "@react-three/fiber";
@@ -8,7 +6,8 @@ import { GalleryFloor } from "./Gallery";
 import { FormMesh } from "./FormMesh";
 import { Lighting } from "./Lighting";
 import { CameraRig } from "./CameraRig";
-import { sceneState } from "@/lib/gsap";
+import { sceneState } from "@/utils/gsap";
+import { cssColor } from "@/utils/cssColor";
 
 /** Hero group: scales down and sinks slightly as the section leaves the frame. */
 function HeroExit({ children, intensity = 1 }) {
@@ -45,7 +44,7 @@ export function HeroScene({ modelUrl, compact = false, reduced = false }) {
             still={reduced}
           />
           <GalleryFloor y={-1.94} />
-          <ContactShadows position={[0, -1.93, 0]} opacity={0.62} scale={11} blur={2.8} far={4.2} resolution={512} color="#000000" />
+          <ContactShadows position={[0, -1.93, 0]} opacity={0.62} scale={11} blur={2.8} far={4.2} resolution={512} color={cssColor("--color-ink")} />
         </group>
       </HeroExit>
     </>

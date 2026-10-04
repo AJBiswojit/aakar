@@ -1,14 +1,11 @@
-"use client";
+import { useServiceData } from "./useServiceData";
+import { getArtist } from "@/services/mock/artist.service";
+import { useMotion } from "@/components/common/MotionProvider";
 
-/**
- * Two tiny helpers so sections never import scroll machinery directly.
- * Everything else about the studio comes from the service layer.
- */
-export { useArtist, useProcessData, useSite } from "@/hooks/useAakar";
-
-import { useMotion } from "@/components/system/MotionProvider";
+export function useArtist() {
+  return useServiceData(getArtist, null);
+}
 
 export function useMotionSafeScrollTo() {
-  const { scrollTo } = useMotion();
-  return scrollTo;
+  return useMotion().scrollTo;
 }

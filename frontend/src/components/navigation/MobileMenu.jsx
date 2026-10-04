@@ -1,16 +1,15 @@
-"use client";
-
-import { useMotion } from "@/components/system/MotionProvider";
-import { useOverlay, useSite } from "@/hooks/useAakar";
-import { cx } from "@/lib/format";
+import { useNavigate } from "react-router-dom";
+import { useSite } from "@/hooks/useSite";
+import { useOverlay } from "@/state/app/AppContext";
+import { cx } from "@/utils/format";
 import { IconArrowRight } from "@/components/ui/Icons";
-import { OverlayShell } from "@/components/overlays/OverlayShell";
+import { OverlayShell } from "@/components/common/OverlayShell";
 
 /** Fullscreen mobile menu. */
 export function MobileMenu() {
   const { kind, closeOverlay } = useOverlay();
-  const site = useSite();
-  const { scrollTo } = useMotion();
+  const { data: site } = useSite();
+  const navigate = useNavigate();
   const open = kind === "menu";
 
   return (
@@ -24,10 +23,11 @@ export function MobileMenu() {
               <li key={link.id} className="border-t border-white/10 last:border-b">
                 <a
                   href={link.href}
-                  onClick={(e) => {
-                    e.preventDefault();
+                  onClick={(event) => {
+                    if (!link.href.startsWith("#")) return;
+                    event.preventDefault();
                     closeOverlay();
-                    setTimeout(() => scrollTo(link.href), 220);
+                    navigate(`/${link.href}`);
                   }}
                   className="group flex items-center justify-between py-5"
                 >

@@ -1,29 +1,35 @@
-"use client";
-
-import Image from "next/image";
-import { useState } from "react";
-import { cx } from "@/lib/format";
+import { useMemo, useState } from "react";
+import { cx } from "@/utils/format";
 import { Reveal, SectionLabel } from "@/components/ui/SectionLabel";
 import { IconArrowRight } from "@/components/ui/Icons";
-import { useCategories, useCollections, useAakar } from "@/hooks/useAakar";
-import { useMotion } from "@/components/system/MotionProvider";
+import { useCategories } from "@/hooks/useCategories";
+import { useCollections } from "@/hooks/useCollections";
+import { useProducts } from "@/hooks/useProducts";
+import { useCategoryFilter } from "@/state/app/AppContext";
+import { useMotion } from "@/components/common/MotionProvider";
 
 /**
  * ROOM 04 — the collection. Categories as typography first; the image follows
  * the reader's cursor along the list instead of sitting in seven cards.
  */
 export function CollectionSection() {
-  const categories = useCategories();
-  const collections = useCollections();
-  const { setCategoryFilter } = useAakar();
+  const { categories: categoryData } = useCategories();
+  const { collections } = useCollections();
+  const { products } = useProducts();
+  const [, setCategoryFilter] = useCategoryFilter();
   const { scrollTo } = useMotion();
+  const categories = useMemo(() => {
+    const counts = new Map();
+    products.forEach((product) => counts.set(product.category.slug, (counts.get(product.category.slug) ?? 0) + 1));
+    return categoryData.map((category) => ({ ...category, count: counts.get(category.slug) ?? 0 }));
+  }, [categoryData, products]);
   const [hovered, setHovered] = useState(-1);
   const active = hovered >= 0 ? hovered : 0;
   const current = categories[active];
 
   const choose = (slug) => {
     setCategoryFilter?.(slug);
-    scrollTo("#store");
+    scrollTo("#store-listing");
   };
 
   return (
@@ -57,7 +63,10 @@ export function CollectionSection() {
                   type="button"
                   onMouseEnter={() => setHovered(i)}
                   onFocus={() => setHovered(i)}
-                  onClick={() => choose(cat.slug)}
+                  onClick={() => {
+                    setHovered(i);
+                    choose(cat.slug);
+                  }}
                   data-cursor="OPEN"
                   className={cx(
                     "group/cat relative flex w-full items-center justify-between gap-6 border-b border-hair py-5 text-left transition-colors duration-500 md:py-7",
@@ -93,26 +102,23 @@ export function CollectionSection() {
             <div className="sticky top-[18vh]">
               <div className="fig aspect-4/5 w-full bg-soft">
                 {categories.map((cat, i) => (
-                  <Image
+                  <img
                     key={cat.id}
                     src={cat.preview}
                     alt={`${cat.name} preview from the AAKAR collection`}
-                    fill
-                    sizes="(max-width: 1023px) 92vw, 32vw"
+                    loading={active === i ? "eager" : "lazy"}
                     className={cx(
-                      "object-cover transition-all duration-[1100ms] ease-out",
-                      active === i ? "scale-100 opacity-100" : "scale-[1.05] opacity-0 lg:scale-100",
-                      active === i ? "" : "pointer-events-none absolute inset-0",
+                      "absolute inset-0 h-full w-full object-cover transition-all duration-[1100ms] ease-out",
+                      active === i ? "scale-100 opacity-100" : "pointer-events-none scale-[1.05] opacity-0 lg:scale-100",
                     )}
-                    style={{ opacity: active === i ? 1 : 0 }}
                   />
                 ))}
                 <span className="u-label-sm absolute left-4 top-4 text-white/80 mix-blend-difference">
                   {current?.name?.toUpperCase()} / {String(current?.count ?? 0).padStart(2, "0")} FORMS
                 </span>
               </div>
-              <p className="u-label mt-4 flex items-center justify-between text-mute">
-                <span>HOVER TO PREVIEW</span>
+              <p className="u-label mt-4 flex flex-col gap-2 text-mute sm:flex-row sm:items-center sm:justify-between">
+                <span>HOVER OR SELECT TO PREVIEW</span>
                 <span className="text-cobalt">CLICK TO FILTER THE STORE</span>
               </p>
             </div>

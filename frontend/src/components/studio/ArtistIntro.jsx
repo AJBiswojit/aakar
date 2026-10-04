@@ -1,6 +1,3 @@
-"use client";
-
-import Image from "next/image";
 import { CobaltLine, Mask, Reveal, SectionLabel } from "@/components/ui/SectionLabel";
 import { Button } from "@/components/ui/Button";
 import { useArtist, useMotionSafeScrollTo } from "@/hooks/useArtist";
@@ -10,7 +7,7 @@ import { useArtist, useMotionSafeScrollTo } from "@/hooks/useArtist";
  * a philosophy, a toolkit. No invented credentials.
  */
 export function StudioSection() {
-  const artist = useArtist();
+  const { data: artist } = useArtist();
   const scrollTo = useMotionSafeScrollTo();
   if (!artist) return null;
 
@@ -37,12 +34,11 @@ export function StudioSection() {
           {/* -------------------------------- portrait -------------------------------- */}
           <div className="lg:col-span-5">
             <Mask className="fig aspect-4/5 w-full bg-soft">
-              <Image
+              <img
                 src={artist.portrait}
-                alt="Inside the AAKAR studio: a lone artist at a dark desk, a 3D sculpt lit on screen"
-                fill
-                sizes="(max-width: 1023px) 92vw, 40vw"
-                className="object-cover transition-transform duration-[1800ms] ease-out hover:scale-[1.03]"
+                alt="The AAKAR studio, with a sculpting workspace and a character study on screen"
+                loading="lazy"
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1800ms] ease-out hover:scale-[1.03]"
               />
             </Mask>
             <div className="mt-4 flex items-center justify-between">

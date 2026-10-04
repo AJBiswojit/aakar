@@ -1,6 +1,4 @@
-"use client";
-
-import { cx } from "@/lib/format";
+import { cx } from "@/utils/format";
 
 /**
  * COBALT LINE — the one signature decorative element of AAKAR.
