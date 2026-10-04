@@ -1,0 +1,41 @@
+@theme {
+  --color-white: #ffffff;
+  --color-soft-white: #f4f6f8;
+  --color-soft: #f4f6f8;
+  --color-obsidian: #050608;
+  --color-black: #000000;
+  --color-ink: #0a0a0b;
+  --color-mute: #6f7681;
+  --color-hair: #e6e9ed;
+  --color-hair-dark: #191b20;
+  --color-cobalt: #1746d8;
+  --color-cobalt-light: #4d6fff;
+  --color-cobalt-dark: #0f2fa8;
+
+  --color-model-surface-dark: #101218;
+  --color-model-surface-light: #e9ebef;
+  --color-model-floor-dark: #080a0e;
+  --color-model-floor-light: #dfe3e8;
+  --color-model-wire: #8fa5ff;
+  --color-model-key: #c9d4ff;
+  --color-model-highlight: #dfe6f5;
+  --color-process-plate: #0b0d11;
+
+  --font-display: "Space Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --font-sans: "Inter", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", monospace;
+
+  --ease-out-soft: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+:root {
+  --color-white-rgb: 255, 255, 255;
+  --color-ink-rgb: 10, 10, 11;
+  --color-obsidian-rgb: 5, 6, 8;
+  --color-cobalt-rgb: 23, 70, 216;
+  --color-hero-core: #040507;
+  --color-hero-mid: #0d1017;
+  --color-nav-border-dark: rgba(255, 255, 255, 0.08);
+  --color-nav-border-light: rgba(10, 10, 11, 0.07);
+  --ease-out-soft: cubic-bezier(0.16, 1, 0.3, 1);
+}

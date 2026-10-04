@@ -1,15 +1,16 @@
-"use client";
-
-import { useMotion } from "@/components/system/MotionProvider";
-import { useSite } from "@/hooks/useAakar";
+import { useMotion } from "@/components/common/MotionProvider";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useSite } from "@/hooks/useSite";
 import { Reveal } from "@/components/ui/SectionLabel";
 
 /** Quiet black footer — navigation, contact, legal. Nothing more. */
 export function Footer() {
-  const site = useSite();
+  const { data: site } = useSite();
   const { scrollTo } = useMotion();
+  const location = useLocation();
+  const navigate = useNavigate();
   const footer = site?.footer;
-  const year = 2026;
+  const year = new Date().getFullYear();
 
   if (!footer) return null;
 
@@ -30,17 +31,24 @@ export function Footer() {
             <ul className="mt-5 flex flex-col gap-3">
               {footer.navigate.map((item) => (
                 <li key={item.label}>
-                  <a
-                    href={item.href}
-                    onClick={(e) => {
-                      if (!item.href.startsWith("#")) return;
-                      e.preventDefault();
-                      scrollTo(item.href);
-                    }}
-                    className="u-label link-underline text-white/65 transition-colors hover:text-white"
-                  >
-                    {item.label}
-                  </a>
+                  {item.href.startsWith("/") ? (
+                    <Link to={item.href} className="u-label link-underline text-white/65 transition-colors hover:text-white">
+                      {item.label}
+                    </Link>
+                  ) : (
+                    <a
+                      href={item.href}
+                      onClick={(event) => {
+                        if (!item.href.startsWith("#")) return;
+                        event.preventDefault();
+                        if (location.pathname === "/") scrollTo(item.href);
+                        else navigate(`/${item.href}`);
+                      }}
+                      className="u-label link-underline text-white/65 transition-colors hover:text-white"
+                    >
+                      {item.label}
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>
@@ -82,8 +90,8 @@ export function Footer() {
 
         <div className="mt-8 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
           <ul className="flex flex-wrap gap-x-6 gap-y-2">
-            {footer.legal.map((l) => (
-              <li key={l.label} id={l.href === "#legal" ? "legal" : undefined}>
+            {footer.legal.map((l, index) => (
+              <li key={l.label} id={l.href === "#legal" && index === 0 ? "legal" : undefined}>
                 <a href={l.href} className="u-label-sm text-white/40 transition-colors hover:text-white">
                   {l.label}
                 </a>

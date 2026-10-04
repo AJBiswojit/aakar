@@ -1,9 +1,8 @@
-"use client";
-
 import { Suspense, useMemo, useRef } from "react";
 import * as THREE from "three";
 import { useFrame } from "@react-three/fiber";
 import { useGLTF } from "@react-three/drei";
+import { cssColor } from "@/utils/cssColor";
 
 /**
  * THE FORM. A procedural lathe-born vessel with a carved ridge pass, used
@@ -63,10 +62,12 @@ export function Vessel({ tone = "dark", wireframe = true, idle = 0.055, follow =
     if (!g || still) return;
     const t = state.clock.getElapsedTime();
     const drift = Math.sin(t * 0.16) * idle;
-    const targetY = drift + state.pointer.x * follow + g.userData.spin;
+    const spin = g.userData.spin ?? 0;
+    const targetY = drift + state.pointer.x * follow + spin;
     const targetX = -state.pointer.y * follow * 0.5;
 
-    if (autorotate) g.userData.spin = (g.userData.spin ?? 0) + delta * autorotate;
+    if (autorotate) g.userData.spin = spin + delta * autorotate;
+    else if (g.userData.spin == null) g.userData.spin = 0;
 
     const k = Math.min(1, delta * 2.6);
     g.rotation.y += (targetY - g.rotation.y) * k;
@@ -78,13 +79,13 @@ export function Vessel({ tone = "dark", wireframe = true, idle = 0.055, follow =
     <group ref={group}>
       <mesh geometry={geometry}>
         <meshPhysicalMaterial
-          color={tone === "light" ? "#e9ebef" : "#101218"}
+          color={tone === "light" ? cssColor("--color-model-surface-light") : cssColor("--color-model-surface-dark")}
           metalness={tone === "light" ? 0.26 : 0.72}
           roughness={tone === "light" ? 0.5 : 0.28}
           clearcoat={0.7}
           clearcoatRoughness={0.26}
           sheen={0.28}
-          sheenColor={new THREE.Color("#1746D8")}
+          sheenColor={new THREE.Color(cssColor("--color-cobalt"))}
           envMapIntensity={tone === "light" ? 0.55 : 1.15}
           transparent={asMesh}
           opacity={asMesh ? 0.16 : 1}
@@ -94,7 +95,7 @@ export function Vessel({ tone = "dark", wireframe = true, idle = 0.055, follow =
       {wireframe ? (
         <mesh geometry={geometry} scale={[1.014, 1.005, 1.014]}>
           <meshBasicMaterial
-            color={asMesh ? "#8fa5ff" : "#4D6FFF"}
+            color={asMesh ? cssColor("--color-model-wire") : cssColor("--color-cobalt-light")}
             wireframe
             transparent
             opacity={asMesh ? 0.55 : tone === "light" ? 0.09 : 0.13}
@@ -105,31 +106,25 @@ export function Vessel({ tone = "dark", wireframe = true, idle = 0.055, follow =
       {/* cobalt measurement ring — the one deliberately technical detail */}
       <mesh rotation={[Math.PI / 2, 0, 0]} position={[0, 0.44, 0]}>
         <torusGeometry args={[0.95, 0.0035, 6, 128]} />
-        <meshBasicMaterial color="#1746D8" toneMapped={false} transparent opacity={0.85} />
+        <meshBasicMaterial color={cssColor("--color-cobalt")} toneMapped={false} transparent opacity={0.85} />
       </mesh>
     </group>
   );
 }
 
-/** Real asset path. */
-function LoadedModel({ url, scale = 1, tone = "dark" }) {
-  const { nodes, materials } = useGLTF(url);
-  const mesh = useMemo(() => Object.values(nodes ?? {}).find((n) => n.isMesh), [nodes]);
-  if (!mesh) return null;
-  return (
-    <mesh geometry={mesh.geometry} scale={scale} material={materials?.[Object.keys(materials)[0]]}>
-      {!materials || Object.keys(materials).length === 0 ? (
-        <meshPhysicalMaterial attach="material" color={tone === "light" ? "#e9ebef" : "#101218"} roughness={0.34} metalness={0.6} />
-      ) : null}
-    </mesh>
-  );
+/** Clone the full scene so multi-mesh assets retain their authored materials. */
+function LoadedModel({ url, scale = 1 }) {
+  const { scene } = useGLTF(url);
+  const model = useMemo(() => scene?.clone(true), [scene]);
+  if (!model) return null;
+  return <primitive object={model} scale={scale} />;
 }
 
 export function FormMesh({ modelUrl, scale = 1, ...rest }) {
   if (modelUrl) {
     return (
       <Suspense fallback={null}>
-        <LoadedModel url={modelUrl} scale={scale} tone={rest.tone} />
+        <LoadedModel url={modelUrl} scale={scale} />
       </Suspense>
     );
   }

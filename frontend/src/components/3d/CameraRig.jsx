@@ -1,7 +1,5 @@
-"use client";
-
 import { useFrame } from "@react-three/fiber";
-import { sceneState } from "@/lib/gsap";
+import { sceneState } from "@/utils/gsap";
 
 /**
  * Camera: breathes with the pointer, drifts back as the hero leaves the frame.

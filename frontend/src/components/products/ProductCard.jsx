@@ -1,18 +1,18 @@
-"use client";
-
-import Image from "next/image";
-import { cx, formatMoney, specBadges } from "@/lib/format";
+import { Link } from "react-router-dom";
+import { cx, formatMoney, specBadges } from "@/utils/format";
 import { CobaltLine } from "@/components/ui/SectionLabel";
 import { IconCube, IconHeart } from "@/components/ui/Icons";
-import { useAakar } from "@/hooks/useAakar";
-import { useOverlay } from "@/hooks/useAakar";
+import { useCartState } from "@/state/cart/CartContext";
+import { useWishlistState } from "@/state/wishlist/WishlistContext";
+import { useOverlay } from "@/state/app/AppContext";
 
 /**
  * A product card that uses hierarchy instead of chrome: image first, metadata
  * small and monospaced, one cobalt hairline as the only decoration.
  */
 export function ProductCard({ product, index = 0, total = 4, offset = false }) {
-  const { cart, wishlist, addToCart, toggleWishlist } = useAakar();
+  const { cart, addToCart } = useCartState();
+  const { wishlist, toggleWishlist } = useWishlistState();
   const { openOverlay } = useOverlay();
 
   if (!product) return null;
@@ -33,12 +33,11 @@ export function ProductCard({ product, index = 0, total = 4, offset = false }) {
         style={{ aspectRatio: "4 / 5" }}
         aria-label={`View ${product.name}`}
       >
-        <Image
+        <img
           src={product.media.thumbnail}
           alt={`${product.name} — ${product.category.name.toLowerCase()} 3D asset render`}
-          fill
-          sizes="(max-width: 767px) 92vw, (max-width: 1279px) 46vw, 30vw"
-          className="object-cover transition-transform duration-[1400ms] ease-out group-hover/product:scale-[1.04]"
+          loading="lazy"
+          className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1400ms] ease-out group-hover/product:scale-[1.04]"
         />
         <span className="pointer-events-none absolute inset-x-0 bottom-0 h-px w-full origin-left scale-x-0 bg-cobalt transition-transform duration-700 ease-out group-hover/product:scale-x-100" />
         <span className="u-label-sm pointer-events-none absolute left-4 top-4 text-white/70 mix-blend-difference">
@@ -79,13 +78,12 @@ export function ProductCard({ product, index = 0, total = 4, offset = false }) {
       <CobaltLine className="mt-5 w-full opacity-0 transition-opacity duration-500 group-hover/product:opacity-100" />
 
       <div className="mt-4 flex items-center gap-5">
-        <button
-          type="button"
-          onClick={() => openOverlay("product", { slug: product.slug })}
+        <Link
+          to={`/product/${product.slug}`}
           className="u-label link-underline text-ink transition-colors duration-400 hover:text-cobalt"
         >
           VIEW PRODUCT →
-        </button>
+        </Link>
         <button
           type="button"
           onClick={() => toggleWishlist(product.id)}

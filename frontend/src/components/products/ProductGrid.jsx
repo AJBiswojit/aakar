@@ -1,6 +1,4 @@
-"use client";
-
-import { cx } from "@/lib/format";
+import { cx } from "@/utils/format";
 import { ProductCard } from "./ProductCard";
 
 /**

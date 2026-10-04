@@ -1,3 +1,6 @@
+import heroFormImage from "../assets/images/hero-form.jpg";
+import weaponFormImage from "../assets/images/weapon-form.jpg";
+
 /**
  * AAKAR — collections. A collection is a curated set of forms released
  * together, not a category. Used for the store header + ticker.
@@ -12,7 +15,7 @@ export const collections = [
     tagline: "Six figures released for examination.",
     description: "Digital forms built for artists, creators and worlds yet to be made.",
     productIds: ["prod_001", "prod_002", "prod_003", "prod_004", "prod_005", "prod_006"],
-    cover: "/assets/work-character.jpg",
+    cover: heroFormImage,
   },
   {
     id: "col_002",
@@ -22,7 +25,7 @@ export const collections = [
     tagline: "Props, blades and vessels with wear history.",
     description: "Small industrial design studies for cinematic staging.",
     productIds: ["prod_003", "prod_004", "prod_006"],
-    cover: "/assets/work-weapon.jpg",
+    cover: weaponFormImage,
   },
 ];
 

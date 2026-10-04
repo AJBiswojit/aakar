@@ -1,9 +1,8 @@
-"use client";
-
 import { ContactShadows, OrbitControls } from "@react-three/drei";
 import { GalleryFloor } from "./Gallery";
 import { FormMesh } from "./FormMesh";
 import { Lighting } from "./Lighting";
+import { cssColor } from "@/utils/cssColor";
 
 /**
  * Museum object: orbit + zoom only. No auto-rotation, no pan — the visitor
@@ -24,7 +23,7 @@ export function ShowcaseScene({ modelUrl, compact = false, meshMode = "surface",
           meshMode={meshMode}
         />
         <GalleryFloor y={-2.32} size={40} />
-        <ContactShadows position={[0, -2.3, 0]} opacity={0.7} scale={12} blur={2.6} far={5} resolution={512} color="#000000" />
+        <ContactShadows position={[0, -2.3, 0]} opacity={0.7} scale={12} blur={2.6} far={5} resolution={512} color={cssColor("--color-ink")} />
       </group>
       {/*
         Wheel zoom is intentionally off: the page must stay scrollable while the

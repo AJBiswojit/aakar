@@ -1,19 +1,23 @@
-"use client";
-
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { cx } from "@/lib/format";
+import { useLocation, useNavigate } from "react-router-dom";
+import { cx } from "@/utils/format";
 import { IconBag, IconHeart, IconMenu, IconSearch } from "@/components/ui/Icons";
-import { useCart, useWishlist, useOverlay, useSite } from "@/hooks/useAakar";
-import { useMotion } from "@/components/system/MotionProvider";
+import { useCart } from "@/hooks/useCart";
+import { useWishlist } from "@/hooks/useWishlist";
+import { useOverlay } from "@/state/app/AppContext";
+import { useSite } from "@/hooks/useSite";
+import { useMotion } from "@/components/common/MotionProvider";
 
 /**
  * AAKAR navbar — thin, quiet, and reactive: it inverts against whichever
  * section is passing underneath it and carries a 1px cobalt progress rail.
  */
 export function Navbar() {
-  const site = useSite();
+  const { data: site } = useSite();
   const { scrollTo } = useMotion();
-  const { openOverlay } = useOverlay();
+  const { kind, openOverlay } = useOverlay();
+  const location = useLocation();
+  const navigate = useNavigate();
   const cart = useCart();
   const wishlist = useWishlist();
 
@@ -66,10 +70,11 @@ export function Navbar() {
     };
   }, [measure]);
 
-  const go = (href) => (e) => {
+  const go = (href) => (event) => {
     if (!href?.startsWith("#")) return;
-    e.preventDefault();
-    scrollTo(href);
+    event.preventDefault();
+    if (location.pathname === "/") scrollTo(href);
+    else navigate(`/${href}`);
   };
 
   const dark = tone === "dark";
@@ -87,7 +92,7 @@ export function Navbar() {
         dark ? "text-white" : "text-ink",
         solid && (dark ? "bg-obsidian/72 backdrop-blur-[14px]" : "bg-white/82 backdrop-blur-[14px]"),
       )}
-      style={{ borderBottom: `1px solid ${solid ? (dark ? "rgba(255,255,255,.08)" : "rgba(10,10,11,.07)") : "transparent"}` }}
+      style={{ borderBottom: `1px solid ${solid ? (dark ? "var(--color-nav-border-dark)" : "var(--color-nav-border-light)") : "transparent"}` }}
     >
       {/* scroll progress — cobalt, 1px */}
       <div aria-hidden="true" className="absolute inset-x-0 top-0 h-px overflow-hidden bg-transparent">
@@ -97,11 +102,11 @@ export function Navbar() {
         />
       </div>
 
-      <nav className="shell flex h-[62px] items-center justify-between gap-6 md:h-[76px]" aria-label="Primary">
+      <nav className="shell flex h-[62px] items-center justify-between gap-2 sm:gap-6 md:h-[76px]" aria-label="Primary">
         {/* ------------------------------- brand ------------------------------- */}
         <a
-          href="#top"
-          onClick={go("#top")}
+          href="#arrival"
+          onClick={go("#arrival")}
           className="group flex items-baseline gap-3"
           data-cursor=""
           aria-label="AAKAR — home"
@@ -155,8 +160,10 @@ export function Navbar() {
             type="button"
             onClick={() => openOverlay("search")}
             aria-label="Search the atelier"
+            aria-haspopup="dialog"
+            aria-expanded={kind === "search"}
             className={cx(
-              "flex items-center gap-2 border border-transparent px-2 py-2 transition-colors duration-500 hover:border-cobalt hover:text-cobalt",
+              "flex items-center gap-2 border border-transparent px-1 py-2 transition-colors duration-500 hover:border-cobalt hover:text-cobalt sm:px-2",
               dark ? "text-white/70" : "text-ink/65",
             )}
           >
@@ -168,26 +175,30 @@ export function Navbar() {
             type="button"
             onClick={() => openOverlay("wishlist")}
             aria-label={`Wishlist, ${counts.wishlist} items`}
+            aria-haspopup="dialog"
+            aria-expanded={kind === "wishlist"}
             className={cx(
-              "relative flex items-center gap-2 px-2 py-2 transition-colors duration-500 hover:text-cobalt",
+              "relative flex items-center gap-2 px-1 py-2 transition-colors duration-500 hover:text-cobalt sm:px-2",
               dark ? "text-white/70" : "text-ink/65",
             )}
           >
             <IconHeart filled={counts.wishlist > 0} />
-            <span className="u-label tabular-nums">{String(counts.wishlist).padStart(2, "0")}</span>
+            <span className="u-label hidden tabular-nums sm:inline">{String(counts.wishlist).padStart(2, "0")}</span>
           </button>
 
           <button
             type="button"
             onClick={() => openOverlay("cart")}
             aria-label={`Cart, ${counts.cart} items`}
+            aria-haspopup="dialog"
+            aria-expanded={kind === "cart"}
             className={cx(
-              "relative flex items-center gap-2 px-2 py-2 transition-colors duration-500 hover:text-cobalt",
+              "relative flex items-center gap-2 px-1 py-2 transition-colors duration-500 hover:text-cobalt sm:px-2",
               dark ? "text-white/70" : "text-ink/65",
             )}
           >
             <IconBag />
-            <span className="u-label tabular-nums">{String(counts.cart).padStart(2, "0")}</span>
+            <span className="u-label hidden tabular-nums sm:inline">{String(counts.cart).padStart(2, "0")}</span>
             {counts.cart > 0 ? (
               <span aria-hidden="true" className="absolute right-0.5 top-1 h-1 w-1 rounded-full bg-cobalt" />
             ) : null}
@@ -197,13 +208,15 @@ export function Navbar() {
             type="button"
             onClick={() => openOverlay("menu")}
             aria-label="Open menu"
+            aria-haspopup="dialog"
+            aria-expanded={kind === "menu"}
             className={cx(
-              "ml-1 flex items-center gap-2 px-2 py-2 lg:hidden",
+              "ml-1 flex items-center gap-2 px-1 py-2 sm:px-2 lg:hidden",
               dark ? "text-white" : "text-ink",
             )}
           >
             <IconMenu />
-            <span className="u-label">MENU</span>
+            <span className="u-label hidden sm:inline">MENU</span>
           </button>
         </div>
       </nav>

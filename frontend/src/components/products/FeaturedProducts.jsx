@@ -1,20 +1,22 @@
-"use client";
-
 import { useMemo } from "react";
-import { cx } from "@/lib/format";
+import { cx } from "@/utils/format";
 import { ProductGrid } from "@/components/products/ProductGrid";
 import { Reveal, SectionLabel } from "@/components/ui/SectionLabel";
-import { useCategories, useCategoryFilter, useFeaturedProducts, useProducts, useSite } from "@/hooks/useAakar";
+import { useCategories } from "@/hooks/useCategories";
+import { useCategoryFilter } from "@/state/app/AppContext";
+import { useFeaturedProducts, useProducts } from "@/hooks/useProducts";
+import { useSite } from "@/hooks/useSite";
 
 /**
  * ROOM 04.5 — the store itself. Only purchasable forms, only real specs.
  */
 export function FeaturedProducts() {
-  const products = useProducts();
-  const featured = useFeaturedProducts();
-  const categories = useCategories();
+  const { products, loading, error } = useProducts();
+  const { products: featured } = useFeaturedProducts();
+  const { categories } = useCategories();
   const [categoryFilter, setCategoryFilter] = useCategoryFilter();
-  const intro = useSite()?.storeIntro;
+  const { data: site } = useSite();
+  const intro = site?.storeIntro;
 
   const chips = useMemo(() => {
     const inUse = new Map();
@@ -25,8 +27,7 @@ export function FeaturedProducts() {
   }, [products, categories]);
 
   const list = useMemo(() => {
-    const source = categoryFilter ? products.filter((p) => p.category.slug === categoryFilter) : featured;
-    return source.length ? source : products;
+    return categoryFilter ? products.filter((p) => p.category.slug === categoryFilter) : featured;
   }, [categoryFilter, products, featured]);
 
   return (
@@ -53,6 +54,7 @@ export function FeaturedProducts() {
           <span className="u-label-sm mr-3 text-mute">FILTER</span>
           <button
             type="button"
+            aria-pressed={!categoryFilter}
             onClick={() => setCategoryFilter?.(null)}
             className={cx(
               "u-label-sm rounded-full border px-3 py-1.5 transition-colors duration-400",
@@ -67,6 +69,7 @@ export function FeaturedProducts() {
               <button
                 key={chip.slug}
                 type="button"
+                aria-pressed={on}
                 onClick={() => setCategoryFilter?.(on ? null : chip.slug)}
                 className={cx(
                   "u-label-sm rounded-full border px-3 py-1.5 transition-colors duration-400",
@@ -82,8 +85,16 @@ export function FeaturedProducts() {
           </span>
         </div>
 
-        <div className="mt-14 lg:mt-20">
-          <ProductGrid products={list} columns={list.length > 4 ? 3 : 2} />
+        <div className="mt-14 min-h-24 lg:mt-20">
+          {error ? (
+            <p role="alert" className="u-body text-mute">The collection could not be loaded.</p>
+          ) : loading ? (
+            <p role="status" className="u-label text-mute">PREPARING THE COLLECTION…</p>
+          ) : list.length ? (
+            <ProductGrid products={list} columns={list.length > 4 ? 3 : 2} />
+          ) : (
+            <p className="u-body text-mute">No forms are listed in this category yet.</p>
+          )}
         </div>
 
         <div className="mt-20 flex flex-col gap-6 border-t border-hair pt-8 sm:flex-row sm:items-center sm:justify-between">

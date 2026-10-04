@@ -1,3 +1,9 @@
+import heroFormImage from "../assets/images/hero-form.jpg";
+import creatureFormImage from "../assets/images/creature-form.jpg";
+import objectFormImage from "../assets/images/object-form.jpg";
+import weaponFormImage from "../assets/images/weapon-form.jpg";
+import environmentFormImage from "../assets/images/environment-form.jpg";
+
 /**
  * AAKAR — product schema (mock). Shape mirrors the storefront API contract,
  * so `productService` can switch from this file to `fetch()` untouched.
@@ -14,9 +20,9 @@ export const products = [
     category: { id: "cat_characters", name: "Characters", slug: "characters" },
     pricing: { amount: 4999, currency: "INR" },
     media: {
-      thumbnail: "/assets/work-character.jpg",
-      hero: "/assets/work-character.jpg",
-      gallery: ["/assets/work-character.jpg", "/assets/process-sculpt.jpg", "/assets/process-texture.jpg"],
+      thumbnail: heroFormImage,
+      hero: heroFormImage,
+      gallery: [heroFormImage, objectFormImage, objectFormImage],
     },
     model: {
       previewUrl: "",
@@ -46,9 +52,9 @@ export const products = [
     category: { id: "cat_creatures", name: "Creatures", slug: "creatures" },
     pricing: { amount: 3499, currency: "INR" },
     media: {
-      thumbnail: "/assets/work-creature.jpg",
-      hero: "/assets/work-creature.jpg",
-      gallery: ["/assets/work-creature.jpg", "/assets/process-sculpt.jpg", "/assets/process-blockout.jpg"],
+      thumbnail: creatureFormImage,
+      hero: creatureFormImage,
+      gallery: [creatureFormImage, objectFormImage, environmentFormImage],
     },
     model: {
       previewUrl: "",
@@ -78,9 +84,9 @@ export const products = [
     category: { id: "cat_weapons", name: "Weapons", slug: "weapons" },
     pricing: { amount: 1899, currency: "INR" },
     media: {
-      thumbnail: "/assets/work-weapon.jpg",
-      hero: "/assets/work-weapon.jpg",
-      gallery: ["/assets/work-weapon.jpg", "/assets/process-texture.jpg"],
+      thumbnail: weaponFormImage,
+      hero: weaponFormImage,
+      gallery: [weaponFormImage, objectFormImage],
     },
     model: {
       previewUrl: "",
@@ -110,9 +116,9 @@ export const products = [
     category: { id: "cat_sculptures", name: "Sculptures", slug: "sculptures" },
     pricing: { amount: 2499, currency: "INR" },
     media: {
-      thumbnail: "/assets/showcase-object.jpg",
-      hero: "/assets/showcase-object.jpg",
-      gallery: ["/assets/showcase-object.jpg", "/assets/process-texture.jpg", "/assets/process-sculpt.jpg"],
+      thumbnail: objectFormImage,
+      hero: objectFormImage,
+      gallery: [objectFormImage, objectFormImage, objectFormImage],
     },
     model: {
       previewUrl: "",
@@ -143,9 +149,9 @@ export const products = [
     category: { id: "cat_environments", name: "Environments", slug: "environments" },
     pricing: { amount: 5499, currency: "INR" },
     media: {
-      thumbnail: "/assets/work-environment.jpg",
-      hero: "/assets/work-environment.jpg",
-      gallery: ["/assets/work-environment.jpg", "/assets/process-blockout.jpg"],
+      thumbnail: environmentFormImage,
+      hero: environmentFormImage,
+      gallery: [environmentFormImage, environmentFormImage],
     },
     model: {
       previewUrl: "",
@@ -175,9 +181,9 @@ export const products = [
     category: { id: "cat_clothing", name: "Clothing", slug: "clothing" },
     pricing: { amount: 1499, currency: "INR" },
     media: {
-      thumbnail: "/assets/process-texture.jpg",
-      hero: "/assets/process-texture.jpg",
-      gallery: ["/assets/process-texture.jpg"],
+      thumbnail: objectFormImage,
+      hero: objectFormImage,
+      gallery: [objectFormImage],
     },
     model: {
       previewUrl: "",

@@ -1,3 +1,5 @@
+import heroFormImage from "../assets/images/hero-form.jpg";
+
 /**
  * AAKAR — brand + site level mock data.
  * Nothing here is composed inside JSX. Sections read this through
@@ -13,6 +15,7 @@ export const brand = {
 };
 
 export const hero = {
+  image: heroFormImage,
   eyebrow: "3D ARTIST / DIGITAL ATELIER",
   location: "BASED IN INDIA",
   year: "2026",
@@ -50,7 +53,7 @@ export const footer = {
     { label: "STORE", href: "#store" },
     { label: "STUDIO", href: "#studio" },
     { label: "ABOUT", href: "#about" },
-    { label: "CONTACT", href: "mailto:studio@aakar.form" },
+    { label: "CONTACT", href: "/contact" },
   ],
   social: [
     { label: "ARTSTATION", href: "https://www.artstation.com", handle: "/aakar" },
@@ -73,8 +76,5 @@ export const footer = {
 };
 
 export const storeState = {
-  /** Starts empty on purpose — cart / wishlist fill from real user actions. */
-  cart: [],
-  wishlist: [],
   currency: "INR",
 };
